@@ -1,0 +1,1 @@
+import{V as _,e as I,f as A,g as O}from"./grouping.BBREoF01.js";const D="amazon-pay-buyer-details-fetch",N="apiClientId",S="https://www.amazon.com/your-orders/buy-with-prime-orders?utm_source=shopify_ty",E=new Set([..._,...I,...A,...O]);export{S as A,N as B,E as I,D as a};

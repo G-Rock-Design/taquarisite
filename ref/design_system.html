@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>TAQUARI &amp; CO. — Design System &amp; UI Kit (White Luxury)</title>
+    <meta name="description" content="Design System de alto padrão combinando a precisão visual de barbearia clássica com a sofisticação gastronômica do Empório 481 em um tema branco puro com lettering transparente e micro-animações."/>
+
+    <!-- Fontes Google Fonts (CDN com pré-conexão e otimização) -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="barbershop-landing-51.aura.build/barbershop-landing-51.aura.build/assets/css2_13ddf91fdf43.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet"/>
+
+    <!-- Estilos base do design system e template de referência -->
+    <link href="barbershop-landing-51.aura.build/barbershop-landing-51.aura.build/assets/css/styles.css" rel="stylesheet"/>
+
+    <!-- Iconify Runtime (Solar Icons) -->
+    <script src="barbershop-landing-51.aura.build/barbershop-landing-51.aura.build/assets/iconify_654a1ef798a3.js"></script>
+
+    <style>
+        /* ============================================================
+           00. THEME TOKENS: WHITE LUXURY OVERRIDE & EXTENSIONS
+           Transformação sistemática do tema escuro para o branco luminoso
+           ============================================================ */
+        :root {
+            /* Inversão sistemática de variáveis base para manter compatibilidade com styles.css */
+            --black: #FAFAF9;              /* Base Background Claro (Branco Marfim) */
+            --black-light: #FFFFFF;        /* Superfícies de Cards e Containers (Branco Puro) */
+            --black-medium: #F3EFE9;       /* Superfícies Secundárias e Fundo de Inputs */
+            --white: #0F0E0E;              /* Texto Primário (Obsidiana / Preto Rico) */
+            --white-dim: #262422;          /* Texto Secundário com alto contraste */
+            --gray: #6E6A64;               /* Texto Neutro / Legendas */
+            --gray-light: #4A4642;         /* Parágrafos e Corpo com leitura agradável */
+
+            /* Ouro e Bronze (Combinação Blade & Co + Empório 481) */
+            --gold: #C8A97E;
+            --gold-light: #E0C7A2;
+            --gold-dark: #9F7E50;
+            --bronze-481: #70533B;         /* Bronze Terroso artesanal Empório 481 */
+            --sand-481: #EEE9E5;           /* Tom Areia Quente Empório 481 */
+
+            /* Cores Semânticas de Feedback */
+            --color-success: #1E6B37;
+            --color-warning: #B35C00;
+            --color-error: #B71C1C;
+            --color-info: #0D5C8A;
+
+            /* Tipografia */
+            --serif: 'Playfair Display', Georgia, serif;
+            --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --display: 'Bebas Neue', Impact, sans-serif;
+            --mono: 'JetBrains Mono', Consolas, monospace;
+
+            /* Curvas de Transição & Easings */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Fundo dinâmico com brilho ambiente animado em todas as dobras */
+        body {
+            background-color: var(--black);
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(200, 169, 126, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 85% 65%, rgba(112, 83, 59, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 90%, rgba(200, 169, 126, 0.05) 0%, transparent 40%);
+            background-attachment: fixed;
+            background-size: 100% 100%;
+            color: var(--white);
+            font-family: var(--sans);
+            position: relative;
+        }
+
+        /* Brilhos difusos flutuantes decorativos (Glow Orbs) */
+        .ambient-glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.55;
+            animation: floatGlow 18s ease-in-out infinite alternate;
+        }
+        .orb-1 {
+            width: 450px;
+            height: 450px;
+            background: rgba(200, 169, 126, 0.12);
+            top: -100px;
+            right: 5%;
+        }
+        .orb-2 {
+            width: 550px;
+            height: 550px;
+            background: rgba(240, 220, 190, 0.15);
+            bottom: 10%;
+            left: -150px;
+            animation-duration: 24s;
+        }
+        @keyframes floatGlow {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(60px) scale(1.08); }
+            100% { transform: translateY(-40px) scale(0.95); }
+        }
+
+        /* Nav Glassmorphism para tema claro */
+        .nav {
+            background: rgba(250, 250, 249, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(200, 169, 126, 0.18);
+        }
+        .nav.scrolled {
+            background: rgba(250, 250, 249, 0.96);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid rgba(200, 169, 126, 0.3);
+        }
+        .nav-logo {
+            color: var(--white) !important;
+            letter-spacing: 0.2em;
+        }
+        .nav-badge {
+            background: rgba(200, 169, 126, 0.15);
+            color: var(--gold-dark);
+            border: 1px solid rgba(200, 169, 126, 0.4);
+            font-size: 0.55rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 9999px;
+            font-family: var(--sans);
+            letter-spacing: 0.15em;
+            margin-left: 0.5rem;
+        }
+
+        /* ============================================================
+           01. HERO DEMO & TRANSPARENT LETTERING
+           ============================================================ */
+        .ds-hero {
+            position: relative;
+            z-index: 1;
+            padding-top: 10rem;
+            padding-bottom: 6rem;
+            min-height: 94vh;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            align-items: center;
+            gap: 4rem;
+            border-bottom: 1px solid rgba(200, 169, 126, 0.2);
+            overflow: hidden;
+        }
+
+        /* Efeito de Lettering Transparente Especializado */
+        .stroke-gold {
+            -webkit-text-stroke: 1.5px var(--gold);
+            color: transparent !important;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            transition: all 0.5s ease;
+        }
+        .stroke-gold:hover {
+            -webkit-text-stroke: 1.5px var(--gold-dark);
+            text-shadow: 0 0 25px rgba(200, 169, 126, 0.3);
+        }
+        .stroke-black {
+            -webkit-text-stroke: 1.5px var(--white);
+            color: transparent !important;
+            letter-spacing: 0.04em;
+            display: inline-block;
+        }
+
+        /* Compositor Visual da Hero (Card de Imagens Sobrepostas) */
+        .hero-visual-stack {
+            position: relative;
+            width: 100%;
+            height: 520px;
+        }
+        .hero-card-main {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 78%;
+            height: 82%;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.07);
+            border: 1px solid rgba(200, 169, 126, 0.35);
+            background: #fff;
+            transition: transform 0.6s var(--ease-out-expo);
+        }
+        .hero-card-main:hover {
+            transform: translateY(-8px) scale(1.01);
+        }
+        .hero-card-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(105%) saturate(102%);
+        }
+        .hero-card-floating {
+            position: absolute;
+            bottom: 20px;
+            right: 15px;
+            width: 58%;
+            height: 55%;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 5px solid #FAFAF9;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1);
+            background: #fff;
+            z-index: 3;
+            transition: transform 0.6s var(--ease-out-expo);
+        }
+        .hero-card-floating:hover {
+            transform: translateY(-8px) rotate(1deg);
+        }
+        .hero-card-floating img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero-float-badge {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--gold);
+            padding: 0.8rem 1.4rem;
+            border-radius: 9999px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            z-index: 4;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            animation: badgeFloat 4s ease-in-out infinite alternate;
+        }
+        @keyframes badgeFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+
+        /* Botões Estendidos com Efeito Glow e Bordas Arredondadas (Empório 481 Pill) */
+        .btn-pill {
+            border-radius: 9999px !important;
+        }
+        .btn-pill::before {
+            border-radius: 9999px !important;
+        }
+        .btn-glow {
+            box-shadow: 0 10px 25px rgba(200, 169, 126, 0.28);
+        }
+        .btn-glow:hover {
+            box-shadow: 0 15px 35px rgba(200, 169, 126, 0.45);
+        }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--white);
+            color: #FAFAF9 !important;
+            padding: 1.1rem 2.2rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            border: 1px solid var(--white);
+            transition: all 0.4s var(--ease-out-expo);
+            position: relative;
+            overflow: hidden;
+            border-radius: 9999px;
+        }
+        .btn-secondary:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white) !important;
+            transform: translateY(-2px);
+        }
+
+        /* Divisores de Linha Sofisticados (Herança Empório 481) */
+        .line-divisor {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 4rem 0;
+            position: relative;
+        }
+        .line-divisor::before,
+        .line-divisor::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(200, 169, 126, 0.35), transparent);
+        }
+        .line-divisor-icon {
+            color: var(--gold);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        /* ============================================================
+           02. SECTIONS & LAYOUT GERAL
+           ============================================================ */
+        .ds-section {
+            padding: 7rem 5rem;
+            position: relative;
+            z-index: 1;
+            border-bottom: 1px solid rgba(200, 169, 126, 0.16);
+            background: transparent;
+        }
+        .ds-section-alt {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+        }
+        .ds-header {
+            margin-bottom: 4rem;
+            max-width: 900px;
+        }
+
+        /* Tipografia Especificação */
+        .spec-table-wrap {
+            width: 100%;
+            overflow-x: auto;
+            background: #FFFFFF;
+            border: 1px solid rgba(200, 169, 126, 0.2);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            margin-bottom: 3.5rem;
+        }
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+        .spec-table th {
+            background: #F8F6F2;
+            padding: 1.2rem 1.5rem;
+            font-family: var(--display);
+            letter-spacing: 0.15em;
+            color: var(--gold-dark);
+            border-bottom: 1px solid rgba(200, 169, 126, 0.2);
+            text-transform: uppercase;
+        }
+        .spec-table td {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid rgba(200, 169, 126, 0.1);
+            color: var(--white);
+            vertical-align: middle;
+        }
+        .spec-table tr:hover {
+            background: rgba(200, 169, 126, 0.04);
+        }
+        .code-tag {
+            background: #F3EFE9;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            color: var(--bronze-481);
+            border: 1px solid rgba(200, 169, 126, 0.2);
+        }
+
+        /* Typography Showcase Rows */
+        .typo-showcase {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .typo-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(200, 169, 126, 0.2);
+            border-radius: 8px;
+            padding: 2.5rem;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2.5rem;
+            align-items: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.02);
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+        .typo-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+        .typo-meta {
+            border-right: 1px solid rgba(200, 169, 126, 0.15);
+            padding-right: 1.5rem;
+        }
+        .typo-meta-role {
+            font-family: var(--display);
+            font-size: 1.4rem;
+            letter-spacing: 0.1em;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+        .typo-meta-specs {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            line-height: 1.7;
+            color: var(--gray);
+        }
+
+        /* ============================================================
+           03. COLOR SYSTEM GRID
+           ============================================================ */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+        .color-swatch-card {
+            background: #FFFFFF;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(200, 169, 126, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo);
+        }
+        .color-swatch-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(200, 169, 126, 0.15);
+        }
+        .swatch-display {
+            height: 140px;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+        .swatch-badge {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .swatch-body {
+            padding: 1.75rem;
+        }
+        .swatch-name {
+            font-family: var(--display);
+            font-size: 1.3rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        .swatch-role {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--gold-dark);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .swatch-details {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            line-height: 1.8;
+            color: var(--gray);
+            border-top: 1px dashed rgba(200, 169, 126, 0.2);
+            padding-top: 1rem;
+        }
+        .opacity-chips {
+            display: flex;
+            gap: 0.4rem;
+            margin-top: 0.8rem;
+        }
+        .opacity-chip {
+            flex: 1;
+            height: 24px;
+            border-radius: 3px;
+            border: 1px solid rgba(0,0,0,0.08);
+            font-size: 0.55rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--mono);
+        }
+
+        /* ============================================================
+           04. UI COMPONENTS SPECIFICATION
+           ============================================================ */
+        .comp-showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 3rem;
+        }
+        .comp-cell {
+            background: #FFFFFF;
+            border: 1px solid rgba(200, 169, 126, 0.2);
+            border-radius: 8px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+        .comp-cell-title {
+            font-family: var(--display);
+            font-size: 1.25rem;
+            letter-spacing: 0.1em;
+            color: var(--gold-dark);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(200, 169, 126, 0.15);
+        }
+        .comp-cell-badge {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            padding: 0.2rem 0.5rem;
+            background: #F3EFE9;
+            color: var(--gray);
+            border-radius: 4px;
+        }
+
+        /* Inputs de formulário ricos com validação e foco dourado */
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            width: 100%;
+        }
+        .form-label {
+            font-size: 0.72rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--white);
+        }
+        .input-text, .select-box, .textarea-box {
+            width: 100%;
+            padding: 1rem 1.4rem;
+            background: #F8F6F2;
+            border: 1px solid rgba(200, 169, 126, 0.3);
+            border-radius: 9999px;
+            font-family: var(--sans);
+            font-size: 0.88rem;
+            color: var(--white);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .textarea-box {
+            border-radius: 12px;
+            resize: vertical;
+            min-height: 100px;
+        }
+        .input-text:focus, .select-box:focus, .textarea-box:focus {
+            background: #FFFFFF;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 4px rgba(200, 169, 126, 0.15);
+        }
+        .input-error {
+            border-color: var(--color-error) !important;
+            box-shadow: 0 0 0 4px rgba(183, 28, 28, 0.08) !important;
+        }
+        .field-helper {
+            font-size: 0.72rem;
+            color: var(--gray);
+            margin-top: 0.25rem;
+        }
+        .field-helper.error { color: var(--color-error); }
+
+        /* Badges & Tags */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.45rem 1rem;
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border-radius: 9999px;
+            font-weight: 600;
+            width: fit-content;
+        }
+        .badge-gold {
+            background: var(--gold);
+            color: #FAFAF9;
+        }
+        .badge-outline {
+            border: 1px solid var(--gold);
+            color: var(--gold-dark);
+            background: transparent;
+        }
+        .badge-dark {
+            background: var(--white);
+            color: #FAFAF9;
+        }
+        .badge-pulse-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            display: inline-block;
+            box-shadow: 0 0 8px currentColor;
+            animation: pulseDot 2s infinite;
+        }
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        /* Tooltips */
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .tooltip-bubble {
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%) translateY(8px);
+            background: var(--white);
+            color: #FAFAF9;
+            padding: 0.6rem 1.1rem;
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s var(--ease-out-expo);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            z-index: 50;
+            pointer-events: none;
+            border: 1px solid var(--gold);
+        }
+        .tooltip-bubble::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--white) transparent transparent transparent;
+        }
+        .tooltip-container:hover .tooltip-bubble {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Modal Overlay & Card */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(250, 250, 249, 0.82);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+        .modal-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-window {
+            background: #FFFFFF;
+            padding: 3.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--gold);
+            max-width: 540px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.92) translateY(20px);
+            transition: all 0.5s var(--ease-spring);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+        .modal-backdrop.active .modal-window {
+            transform: scale(1) translateY(0);
+        }
+        .modal-exit-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.8rem;
+            font-size: 2rem;
+            line-height: 1;
+            color: var(--gray);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .modal-exit-btn:hover { color: var(--gold); }
+
+        /* Card Gastronômico Especial (Fusão Blade & Co + Empório 481) */
+        .food-card {
+            background: #FFFFFF;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(200, 169, 126, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo);
+        }
+        .food-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 45px rgba(200, 169, 126, 0.2);
+            border-color: var(--gold);
+        }
+        .food-card-img {
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+        .food-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s var(--ease-out-expo);
+        }
+        .food-card:hover .food-card-img img {
+            transform: scale(1.08);
+        }
+        .food-card-tag {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.3rem 0.8rem;
+            border-radius: 9999px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold-dark);
+            border: 1px solid var(--gold);
+        }
+        .food-card-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .food-card-title {
+            font-family: var(--display);
+            font-size: 1.6rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        .food-card-desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        .food-card-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1.2rem;
+            border-top: 1px solid rgba(200, 169, 126, 0.15);
+        }
+        .food-price {
+            font-family: var(--display);
+            font-size: 1.8rem;
+            color: var(--gold-dark);
+            letter-spacing: 0.05em;
+        }
+
+        /* ============================================================
+           05. ICONS SHOWCASE (SOLAR ICONS RUNTIME)
+           ============================================================ */
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 1.5rem;
+        }
+        .icon-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(200, 169, 126, 0.2);
+            border-radius: 8px;
+            padding: 1.8rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .icon-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(200, 169, 126, 0.12);
+        }
+        .icon-card .iconify {
+            font-size: 2.2rem;
+            color: var(--gold-dark);
+            transition: transform 0.3s var(--ease-spring);
+        }
+        .icon-card:hover .iconify {
+            transform: scale(1.2);
+            color: var(--white);
+        }
+        .icon-label {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--gray);
+            text-align: center;
+        }
+
+        /* ============================================================
+           06. ANIMATIONS LAB & PLAYGROUND
+           ============================================================ */
+        .motion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .motion-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(200, 169, 126, 0.2);
+            border-radius: 8px;
+            padding: 2.2rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .motion-demo-box {
+            height: 120px;
+            background: #F8F6F2;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px dashed rgba(200, 169, 126, 0.3);
+            position: relative;
+        }
+        .pulse-box {
+            width: 50px;
+            height: 50px;
+            background: var(--gold);
+            border-radius: 8px;
+            animation: pulseDemo 2.5s infinite;
+        }
+        @keyframes pulseDemo {
+            0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(200, 169, 126, 0.5); }
+            70% { transform: scale(1.08); box-shadow: 0 0 0 20px rgba(200, 169, 126, 0); }
+            100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(200, 169, 126, 0); }
+        }
+        .shimmer-bar {
+            width: 80%;
+            height: 12px;
+            background: linear-gradient(90deg, #EAE6DF 0%, #FFFFFF 50%, #EAE6DF 100%);
+            background-size: 200% 100%;
+            border-radius: 6px;
+            animation: shimmerEffect 2s infinite linear;
+        }
+        @keyframes shimmerEffect {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Micro-indicador de Scroll e Detalhes */
+        .code-block {
+            background: #191716;
+            color: #E8E6E1;
+            padding: 1.5rem;
+            border-radius: 6px;
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            overflow-x: auto;
+            border-left: 3px solid var(--gold);
+            line-height: 1.6;
+        }
+
+        /* Responsividade refinada */
+        @media (max-width: 1024px) {
+            .ds-hero { grid-template-columns: 1fr; padding-top: 8rem; }
+            .hero-visual-stack { height: 420px; }
+            .typo-card { grid-template-columns: 1fr; gap: 1.5rem; }
+            .ds-section { padding: 5rem 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Brilhos Ambiente Flutuantes no Fundo (Ambient Glow) -->
+    <div class="ambient-glow-orb orb-1"></div>
+    <div class="ambient-glow-orb orb-2"></div>
+
+    <!-- NAVEGAÇÃO DE TOPO (Glassmorphism & Branding) -->
+    <nav class="nav" id="nav">
+        <a class="nav-logo" href="#">
+            TAQUARI <span class="logo-ampersand">&amp;</span> CO.
+            <span class="nav-badge">DESIGN SYSTEM</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#hero">00. Início</a></li>
+            <li><a href="#typography">01. Tipografia</a></li>
+            <li><a href="#colors">02. Cores</a></li>
+            <li><a href="#components">03. Componentes</a></li>
+            <li><a href="#icons">04. Ícones</a></li>
+            <li><a href="#motion">05. Animações</a></li>
+        </ul>
+        <a class="nav-cta btn-pill btn-glow" href="#components">Explorar Kit UI</a>
+        <div class="nav-hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- MENU MOBILE -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="#hero" onclick="closeMobileNav()">00. Início</a>
+        <a href="#typography" onclick="closeMobileNav()">01. Tipografia</a>
+        <a href="#colors" onclick="closeMobileNav()">02. Cores</a>
+        <a href="#components" onclick="closeMobileNav()">03. Componentes</a>
+        <a href="#icons" onclick="closeMobileNav()">04. Ícones</a>
+        <a href="#motion" onclick="closeMobileNav()">05. Animações</a>
+    </div>
+
+    <!-- ============================================================
+         1. PRIMEIRA DOBRA: HERO DEMO DO DESIGN SYSTEM
+         Lettering Transparente, Fotos de Barbershop & Gastronomia Empório 481, Efeitos e Glow
+         ============================================================ -->
+    <section class="ds-hero" id="hero" style="padding-left: 5rem; padding-right: 5rem;">
+        <div class="hero-content" style="padding: 0; max-width: 680px;">
+            <div class="hero-tag reveal">
+                <span class="hero-tag-line"></span>
+                <span class="hero-tag-text">White Luxury · Design System v2.0</span>
+                <span class="hero-tag-line"></span>
+            </div>
+
+            <!-- LETTERING TRANSPARENTE E IMPACTANTE -->
+            <h1 class="hero-title reveal reveal-delay-1" style="font-size: clamp(3.8rem, 6.5vw, 6.8rem); line-height: 0.92; margin-bottom: 2.2rem;">
+                <span class="stroke-gold">TAQUARI</span>
+                <span>EXCELÊNCIA &amp; OFÍCIO</span>
+                <span class="stroke-black">O BRANCO ATEMPORAL</span>
+            </h1>
+
+            <p class="hero-desc reveal reveal-delay-2" style="max-width: 580px; font-size: 1.05rem; line-height: 1.8; color: var(--gray-light); margin-bottom: 2.8rem;">
+                Uma síntese artística que une o rigor estético da barbearia artesanal à exclusividade gastronômica do <strong>Empório 481</strong>. Fundamentado em transparências tipográficas, contrastes precisos e superfícies luminosas que redefinem a experiência do luxo branco.
+            </p>
+
+            <div class="hero-actions reveal reveal-delay-3" style="gap: 1.5rem; flex-wrap: wrap;">
+                <a class="btn-primary btn-pill btn-glow" href="#typography">
+                    <span>Explorar Tipografia</span>
+                    <svg aria-hidden="true" class="iconify iconify--solar" data-icon="solar:arrow-right-linear" height="1em" role="img" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M4 12h16m0 0l-6-6m6 6l-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg>
+                </a>
+                <a class="btn-secondary" href="#components">
+                    <span>Componentes UI</span>
+                    <svg aria-hidden="true" class="iconify iconify--solar" data-icon="solar:widget-add-bold" height="1em" role="img" viewBox="0 0 24 24" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2z" fill="currentColor"/></svg>
+                </a>
+                <a class="btn-outline" href="#colors">
+                    <span>Cores &amp; Tokens</span>
+                </a>
+            </div>
+
+            <!-- Mini Métricas na Dobra Inicial -->
+            <div class="about-stats reveal reveal-delay-4" style="margin-top: 3.5rem; padding-top: 2rem; border-color: rgba(200, 169, 126, 0.25);">
+                <div>
+                    <div class="stat-number">06</div>
+                    <div class="stat-label">Módulos Essenciais</div>
+                </div>
+                <div>
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Design Branco &amp; Luz</div>
+                </div>
+                <div>
+                    <div class="stat-number">AAA</div>
+                    <div class="stat-label">Contraste Aferido</div>
+                </div>
+                <div>
+                    <div class="stat-number">60 FPS</div>
+                    <div class="stat-label">Micro-Animações</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPOSIÇÃO VISUAL COM FOTOS REAIS DAS DUAS REFERÊNCIAS -->
+        <div class="hero-visual-stack reveal reveal-delay-2">
+            <!-- Card Principal (Barbearia de Luxo) -->
+            <div class="hero-card-main">
+                <img alt="Barbearia Artesanal em Foco" src="barbershop-landing-51.aura.build/barbershop-landing-51.aura.build/assets/photo-1621605815971-fbc98d6650_2ef33d15070f.avif"/>
+            </div>
+            <!-- Card Sobreposto (Gastronomia Wagyu Empório 481) -->
+            <div class="hero-card-floating">
+                <img alt="Wagyu A5 Marmorizado Empório 481" src="emporio481.com.br/assets/Wagyu-A5-Categoria.webp"/>
+            </div>
+            <!-- Badge Flutuante em Vidro -->
+            <div class="hero-float-badge">
+                <svg aria-hidden="true" class="iconify" data-icon="solar:crown-bold" height="1.2em" style="color: var(--gold);" width="1.2em" xmlns="http://www.w3.org/2000/svg"><path d="m20.092 14.326l.193-1.894c.103-1.011.17-1.678.117-2.099h.02c.871 0 1.578-.746 1.578-1.666S21.293 7 20.421 7s-1.579.746-1.579 1.667c0 .416.145.797.384 1.089c-.343.223-.792.695-1.468 1.405c-.52.547-.78.82-1.07.863a.84.84 0 0 1-.473-.07c-.268-.124-.447-.462-.804-1.139L13.527 7.25c-.22-.417-.405-.766-.572-1.047c.683-.368 1.15-1.117 1.15-1.98C14.105 2.994 13.163 2 12 2s-2.105.995-2.105 2.222c0 .864.467 1.613 1.15 1.98c-.167.282-.351.631-.572 1.048L8.59 10.816c-.358.676-.537 1.014-.805 1.139a.84.84 0 0 1-.473.07c-.29-.043-.55-.317-1.07-.864c-.676-.71-1.125-1.182-1.468-1.405c.24-.292.384-.673.384-1.09C5.158 7.747 4.45 7 3.578 7C2.708 7 2 7.746 2 8.667c0 .92.707 1.666 1.579 1.666h.019c-.054.42.014 1.088.117 2.099l.193 1.894c.107 1.051.196 2.051.306 2.952h15.572c.11-.9.199-1.901.306-2.952M10.855 22h2.29c2.985 0 4.478 0 5.474-.94c.434-.412.71-1.152.908-2.116H4.473c.198.964.473 1.704.908 2.115C6.377 22 7.87 22 10.855 22" fill="currentColor"/></svg>
+                <div style="display: flex; flex-direction: column;">
+                    <span style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white);">Wagyu A5 &amp; Craft</span>
+                    <span style="font-size: 0.62rem; color: var(--gray); font-family: var(--mono);">Qualidade Máxima Certificada</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TICKER MARQUEE INFINITO COM ITENS EM MOVIMENTO -->
+    <div class="marquee-section reveal">
+        <div class="marquee-track">
+            <div class="marquee-item">
+                <span>Tipografia Transparente</span><div class="dot"></div>
+                <span>Design Branco &amp; Luz</span><div class="dot"></div>
+                <span>Cortes Nobres &amp; Wagyu 481</span><div class="dot"></div>
+                <span>Ofício Clássico</span><div class="dot"></div>
+                <span>Tokens HSL &amp; HEX</span><div class="dot"></div>
+                <span>Micro-Animações 60 FPS</span><div class="dot"></div>
+                <span>Solar Icons</span><div class="dot"></div>
+            </div>
+            <div class="marquee-item">
+                <span>Tipografia Transparente</span><div class="dot"></div>
+                <span>Design Branco &amp; Luz</span><div class="dot"></div>
+                <span>Cortes Nobres &amp; Wagyu 481</span><div class="dot"></div>
+                <span>Ofício Clássico</span><div class="dot"></div>
+                <span>Tokens HSL &amp; HEX</span><div class="dot"></div>
+                <span>Micro-Animações 60 FPS</span><div class="dot"></div>
+                <span>Solar Icons</span><div class="dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         2. TIPOGRAFIA (TYPOGRAPHY SYSTEM & SPECS)
+         Font families, Loading Strategy, Full Type Scale (H1-H6, Body, Captions, Labels)
+         ============================================================ -->
+    <section class="ds-section" id="typography">
+        <div class="ds-header reveal">
+            <div class="section-tag">
+                <span class="section-tag-line"></span>
+                <span class="section-tag-text">Fundação Tipográfica · Escala Completa</span>
+            </div>
+            <h2 class="section-title">01. <span class="italic">Tipografia</span> &amp; Hierarquia</h2>
+            <p class="about-text" style="max-width: 820px; margin-bottom: 1.5rem;">
+                O sistema adota uma tríade tipográfica cuidadosamente hierarquizada: <strong>Bebas Neue</strong> para títulos de grande impacto com suporte a traço transparente vazado, <strong>Playfair Display</strong> para toques editoriais de luxo e <strong>Inter</strong> para clareza máxima e legibilidade em corpos de texto e interfaces.
+            </p>
+        </div>
+
+        <!-- ESTRATÉGIA DE CARREGAMENTO & FONT FAMILIES -->
+        <div class="comp-showcase-grid reveal reveal-delay-1" style="margin-bottom: 3.5rem;">
+            <div class="comp-cell">
+                <div class="comp-cell-title">
+                    <span>Font Families &amp; Stacks</span>
+                    <span class="comp-cell-badge">CSS Tokens</span>
+                </div>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem;">
+                    <li>
+                        <strong style="color: var(--gold-dark); font-size: 0.8rem; text-transform: uppercase;">Display Primário:</strong>
+                        <div class="code-tag" style="margin-top: 0.3rem;">--display: 'Bebas Neue', Impact, sans-serif;</div>
+                    </li>
+                    <li>
+                        <strong style="color: var(--gold-dark); font-size: 0.8rem; text-transform: uppercase;">Serif Editorial / Accent:</strong>
+                        <div class="code-tag" style="margin-top: 0.3rem;">--serif: 'Playfair Display', Georgia, serif;</div>
+                    </li>
+                    <li>
+                        <strong style="color: var(--gold-dark); font-size: 0.8rem; text-transform: uppercase;">Sans-Serif (Body &amp; UI):</strong>
+                        <div class="code-tag" style="margin-top: 0.3rem;">--sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;</div>
+                    </li>
+                    <li>
+                        <strong style="color: var(--gold-dark); font-size: 0.8rem; text-transform: uppercase;">Monospace (Dados &amp; Código):</strong>
+                        <div class="code-tag" style="margin-top: 0.3rem;">--mono: 'JetBrains Mono', Consolas, monospace;</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="comp-cell">
+                <div class="comp-cell-title">
+                    <span>Estratégia de Carregamento</span>
+                    <span class="comp-cell-badge">CDN &amp; Local</span>
+                </div>
+                <div style="font-size: 0.85rem; line-height: 1.8; color: var(--gray);">
+                    <p style="margin-bottom: 0.8rem;">
+                        <strong>1. Pré-conexão (Preconnect):</strong> Conexões antecipadas para <code>fonts.googleapis.com</code> e <code>fonts.gstatic.com</code> via <code>crossorigin</code> eliminando latência de DNS lookup.
+                    </p>
+                    <p style="margin-bottom: 0.8rem;">
+                        <strong>2. Font-Display Swap:</strong> Renderização imediata via fallbacks do sistema operacional, evitando FOUT (Flash of Unstyled Text) e FOIT.
+                    </p>
+                    <p>
+                        <strong>3. Range de Pesos (Weight Ranges):</strong> Inter (300, 400, 500, 600, 700), Playfair Display (400, 600, 700 com suporte a Itálico), Bebas Neue (400 Regular condensado).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABELA DE ESPECIFICAÇÃO TÉCNICA (EXATA CONFORME SOLICITADO) -->
+        <div class="spec-table-wrap reveal reveal-delay-2">
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>Font-Family</th>
+                        <th>Weight</th>
+                        <th>Font-Size</th>
+                        <th>Line-Height</th>
+                        <th>Letter-Spacing</th>
+                        <th>Transform</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>H1 Display Stroke</strong></td>
+                        <td>Bebas Neue</td>
+                        <td><span class="code-tag">400 / 700</span></td>
+                        <td>clamp(3.5rem, 7vw, 7rem)</td>
+                        <td>0.95 (66px)</td>
+                        <td>0.04em</td>
+                        <td>UPPERCASE</td>
+                    </tr>
+                    <tr>
+                        <td><strong>H1 Display Solid</strong></td>
+                        <td>Bebas Neue</td>
+                        <td><span class="code-tag">400</span></td>
+                        <td>clamp(3.5rem, 7vw, 7rem)</td>
+                        <td>0.95</td>
+                        <td>0.04em</td>
+                        <td>UPPERCASE</td>
+                    </tr>
+                    <tr>
+                        <td><strong>H2 Editorial Serif</strong></td>
+                        <td>Playfair Display</td>
+                        <td><span class="code-tag">400 / 600</span></td>
+                        <td>clamp(2.5rem, 4vw, 4rem)</td>
+                        <td>1.05 (42px)</td>
+                        <td>0.05em</td>
+                        <td>ITALIC / NONE</td>
+                    </tr>
+                    <tr>
+                        <td><strong>H3 Section Title</strong></td>
+                        <td>Bebas Neue</td>
+                        <td><span class="code-tag">400</span></td>
+                        <td>2.2rem (35.2px)</td>
+                        <td>1.15 (40px)</td>
+                        <td>0.05em</td>
+                        <td>UPPERCASE</td>
+                    </tr>
+                    <tr>
+                        <td><strong>H4 Subsection</strong></td>
+                        <td>Inter / Bebas</td>
+                        <td><span class="code-tag">600</span></td>
+                        <td>1.5rem (24px)</td>
+                        <td>1.3 (31.2px)</td>
+                        <td>0.03em</td>
+                        <td>UPPERCASE</td>
+                    </tr>
+                    <tr>
+                        <td><strong>H5 Card Title</strong></td>
+                        <td>Bebas Neue / Inter</td>
+                        <td><span class="code-tag">600</span></td>
+                        <td>1.25rem (20px)</td>
+                        <td>1.4 (28px)</td>
+                        <td>0.05em</td>
+                        <td>UPPERCASE</td>
+                    </tr>
+                    <tr>
+                        <td><strong>H6 Micro Heading</strong></td>
+                        <td>Inter</td>
+                        <td><span class="code-tag">700</span></td>
+                        <td>0.875rem (14px)</td>
+                        <td>1.4 (19.6px)</td>
+                        <td>0.15em</td>
+                        <td>UPPERCASE</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Body-LG (Destaque)</strong></td>
+                        <td>Inter</td>
+                        <td><span class="code-tag">400</span></td>
+                        <td>1.125rem (18px)</td>
+                        <td>1.7 (30.6px)</td>
+                        <td>0em</td>
+                        <td>NONE</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Body (Padrão)</strong></td>
+                        <td>Inter</td>
+                        <td><span class="code-tag">400</span></td>
+                        <td>1.0rem (16px)</td>
+                        <td>1.8 (28.8px)</td>
+                        <td>0em</td>
+                        <td>NONE</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Body-SM (Compacto)</strong></td>
+                        <td>Inter</td>
+                        <td><span class="code-tag">400 / 500</span></td>
+                        <td>0.875rem (14px)</td>
+                        <td>1.6 (22.4px)</td>
+                        <td>0.01em</td>
+                        <td>NONE</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Captions &amp; Helpers</strong></td>
+                        <td>Inter</td>
+                        <td><span class="code-tag">500</span></td>
+                        <td>0.75rem (12px)</td>
+                        <td>1.4 (16.8px)</td>
+                        <td>0.05em</td>
+                        <td>NONE</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Labels &amp; Tags</strong></td>
+                        <td>Inter</td>
+                        <td><span class="code-tag">600</span></td>
+                        <td>0.65rem (10.4px)</td>
+                        <td>1.0 (10.4px)</td>
+                        <td>0.35em</td>
+                        <td>UPPERCASE</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- DEMONSTRAÇÃO VISUAL DOS PAPÉIS TIPOGRÁFICOS -->
+        <div class="typo-showcase">
+            <!-- H1 Display Stroke & Solid -->
+            <div class="typo-card reveal reveal-delay-1">
+                <div class="typo-meta">
+                    <div class="typo-meta-role">H1 Display Stroke</div>
+                    <div class="typo-meta-specs">
+                        Family: Bebas Neue<br/>
+                        Size: 4.5rem | Weight: 400<br/>
+                        Stroke: 1.5px Gold / Black<br/>
+                        Color: Transparent
+                    </div>
+                </div>
+                <div>
+                    <div style="font-family: var(--display); font-size: 4.5rem; line-height: 0.95; letter-spacing: 0.04em;">
+                        <span class="stroke-gold">TRADIÇÃO</span> &amp; <span class="stroke-black">LUXO</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- H2 Editorial Serif -->
+            <div class="typo-card reveal reveal-delay-2">
+                <div class="typo-meta">
+                    <div class="typo-meta-role">H2 Editorial Serif</div>
+                    <div class="typo-meta-specs">
+                        Family: Playfair Display<br/>
+                        Size: 3.2rem | Weight: 400<br/>
+                        Style: Italic<br/>
+                        Color: var(--gold)
+                    </div>
+                </div>
+                <div>
+                    <div style="font-family: var(--serif); font-size: 3.2rem; font-style: italic; line-height: 1.1; color: var(--gold-dark);">
+                        A nobreza do ofício manual e a cura perfeita.
+                    </div>
+                </div>
+            </div>
+
+            <!-- H3 ao H6 -->
+            <div class="typo-card reveal reveal-delay-3">
+                <div class="typo-meta">
+                    <div class="typo-meta-role">H3 a H6 Escala</div>
+                    <div class="typo-meta-specs">
+                        H3: 2.2rem (Bebas)<br/>
+                        H4: 1.5rem (Bebas)<br/>
+                        H5: 1.25rem (Inter 600)<br/>
+                        H6: 0.88rem (Inter 700)
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <h3 style="font-family: var(--display); font-size: 2.2rem; letter-spacing: 0.05em; line-height: 1.15;">H3. CORTE EXCLUSIVO E PREPARO ARTESANAL</h3>
+                    <h4 style="font-family: var(--display); font-size: 1.5rem; letter-spacing: 0.05em; color: var(--gold-dark);">H4. Wagyu A5 BMS 10 Importado de Kagoshima</h4>
+                    <h5 style="font-family: var(--sans); font-weight: 600; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.05em;">H5. Seleção Especial de Carnes Dry Aged &amp; Cuidados Nobres</h5>
+                    <h6 style="font-family: var(--sans); font-weight: 700; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gray);">H6. Subtítulo Técnico e Metadados do Sistema</h6>
+                </div>
+            </div>
+
+            <!-- Body, Body-SM, Captions & Labels -->
+            <div class="typo-card reveal reveal-delay-4">
+                <div class="typo-meta">
+                    <div class="typo-meta-role">Corpo &amp; Labels</div>
+                    <div class="typo-meta-specs">
+                        Family: Inter<br/>
+                        Body-LG: 1.125rem / 1.7<br/>
+                        Body: 1.0rem / 1.8<br/>
+                        Label: 0.70rem / 0.35em
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+                    <p style="font-size: 1.125rem; line-height: 1.7; color: var(--white);">
+                        <strong>Body-LG:</strong> Cada detalhe reflete uma herança de excelência. Do calor suave das toalhas tradicionais ao corte milimétrico na grelha de ferro fundido, nossa assinatura é a impecabilidade.
+                    </p>
+                    <p style="font-size: 1rem; line-height: 1.8; color: var(--gray-light);">
+                        <strong>Body:</strong> Texto padrão de leitura contínua. Formulado com entrelinha de 1.8 para permitir fluidez visual contra fundos marfins e claros, reduzindo a fadiga ocular mesmo em longos períodos de leitura.
+                    </p>
+                    <div style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; margin-top: 0.5rem;">
+                        <span class="section-tag-text" style="color: var(--gold-dark);">LABEL PRIMÁRIA · 0.70REM</span>
+                        <span style="font-size: 0.75rem; color: var(--gray); font-family: var(--mono);">CAPTION AUXILIAR: #0921-AURA-SPEC</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIVISOR ELEGANTE (ESTILO EMPÓRIO 481) -->
+    <div class="line-divisor reveal">
+        <span class="line-divisor-icon">♦</span>
+    </div>
+
+    <!-- ============================================================
+         3. SISTEMA DE CORES (COLOR SYSTEM & HARMONY)
+         HEX, RGB, HSL, Variantes de Opacidade, Gradients, Regras de Uso & Contraste WCAG
+         ============================================================ -->
+    <section class="ds-section ds-section-alt" id="colors">
+        <div class="ds-header reveal">
+            <div class="section-tag">
+                <span class="section-tag-line"></span>
+                <span class="section-tag-text">Identidade Cromática &amp; WCAG</span>
+            </div>
+            <h2 class="section-title">02. <span class="italic">Sistema de Cores</span> &amp; Harmonia</h2>
+            <p class="about-text" style="max-width: 820px;">
+                Uma cartela cromática concebida para criar uma atmosfera de prestígio e luminosidade atemporal. Substituímos a obscuridade tradicional por uma gama de brancos nobres, areias sutis e o contraste profundo do preto obsidiana com toques de ouro metálico e bronze 481.
+            </p>
+        </div>
+
+        <div class="color-grid">
+            <!-- 01. White Primary BG -->
+            <div class="color-swatch-card reveal reveal-delay-1">
+                <div class="swatch-display" style="background: #FAFAF9;">
+                    <span class="swatch-badge" style="color: #0F0E0E; border: 1px solid #E8E6E1;">Primary BG</span>
+                </div>
+                <div class="swatch-body">
+                    <div class="swatch-name">Branco Marfim</div>
+                    <div class="swatch-role">Superfície Base / Background Global</div>
+                    <div class="swatch-details">
+                        HEX: <strong>#FAFAF9</strong><br/>
+                        RGB: rgb(250, 250, 249)<br/>
+                        HSL: hsl(45°, 20%, 98%)<br/>
+                        Contraste: <strong>18.7:1 vs #0F0E0E (AAA)</strong><br/>
+                        Uso: Fundo de tela principal, áreas respiráveis.
+                    </div>
+                    <div class="opacity-chips">
+                        <div class="opacity-chip" style="background: rgba(250, 250, 249, 1.0);">100%</div>
+                        <div class="opacity-chip" style="background: rgba(250, 250, 249, 0.8);">80%</div>
+                        <div class="opacity-chip" style="background: rgba(250, 250, 249, 0.4);">40%</div>
+                        <div class="opacity-chip" style="background: rgba(250, 250, 249, 0.15);">15%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 02. Pure White Surface -->
+            <div class="color-swatch-card reveal reveal-delay-2">
+                <div class="swatch-display" style="background: #FFFFFF; border-bottom: 1px solid #EAE6DF;">
+                    <span class="swatch-badge" style="color: #0F0E0E; border: 1px solid #DCD8D2;">Pure White Card</span>
+                </div>
+                <div class="swatch-body">
+                    <div class="swatch-name">Branco Puro</div>
+                    <div class="swatch-role">Cards, Modais, Containers Elevados</div>
+                    <div class="swatch-details">
+                        HEX: <strong>#FFFFFF</strong><br/>
+                        RGB: rgb(255, 255, 255)<br/>
+                        HSL: hsl(0°, 0%, 100%)<br/>
+                        Contraste: <strong>19.2:1 vs #0F0E0E (AAA)</strong><br/>
+                        Uso: Cartões de produto, inputs focados, elevação visual.
+                    </div>
+                    <div class="opacity-chips">
+                        <div class="opacity-chip" style="background: rgba(255, 255, 255, 1.0);">100%</div>
+                        <div class="opacity-chip" style="background: rgba(255, 255, 255, 0.8);">80%</div>
+                        <div class="opacity-chip" style="background: rgba(255, 255, 255, 0.4);">40%</div>
+                        <div class="opacity-chip" style="background: rgba(255, 255, 255, 0.15);">15%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 03. Obsidian Black (Primary Text) -->
+            <div class="color-swatch-card reveal reveal-delay-3">
+                <div class="swatch-display" style="background: #0F0E0E;">
+                    <span class="swatch-badge" style="background: #FFF; color: #0F0E0E;">Primary Text</span>
+                </div>
+                <div class="swatch-body">
+                    <div class="swatch-name">Preto Obsidiana</div>
+                    <div class="swatch-role">Texto Primário / Lettering Stroke</div>
+                    <div class="swatch-details">
+                        HEX: <strong>#0F0E0E</strong><br/>
+                        RGB: rgb(15, 14, 14)<br/>
+                        HSL: hsl(0°, 3%, 6%)<br/>
+                        Contraste: <strong>18.7:1 vs #FAFAF9 (AAA)</strong><br/>
+                        Uso: Títulos, botões escuros, contornos transparentes.
+                    </div>
+                    <div class="opacity-chips">
+                        <div class="opacity-chip" style="background: rgba(15, 14, 14, 1.0); color:#fff;">100%</div>
+                        <div class="opacity-chip" style="background: rgba(15, 14, 14, 0.8); color:#fff;">80%</div>
+                        <div class="opacity-chip" style="background: rgba(15, 14, 14, 0.4); color:#fff;">40%</div>
+                        <div class="opacity-chip" style="background: rgba(15, 14, 14, 0.15);">15%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 04. Gold Accent -->
+            <div class="color-swatch-card reveal reveal-delay-4">
+                <div class="swatch-display" style="background: #C8A97E;">
+                    <span class="swatch-badge" style="background: #0F0E0E; color: #C8A97E;">Accent Gold</span>
+                </div>
+                <div class="swatch-body">
+                    <div class="swatch-name">Ouro Metálico</div>
+                    <div class="swatch-role">Destaque Primário, CTAs, Stroking</div>
+                    <div class="swatch-details">
+                        HEX: <strong>#C8A97E</strong><br/>
+                        RGB: rgb(200, 169, 126)<br/>
+                        HSL: hsl(35°, 41%, 64%)<br/>
+                        Contraste: <strong>4.8:1 vs #0F0E0E (AA+)</strong><br/>
+                        Uso: Botões principais, bordas ativas, lettering stroke.
+                    </div>
+                    <div class="opacity-chips">
+                        <div class="opacity-chip" style="background: rgba(200, 169, 126, 1.0); color:#fff;">100%</div>
+                        <div class="opacity-chip" style="background: rgba(200, 169, 126, 0.8); color:#fff;">80%</div>
+                        <div class="opacity-chip" style="background: rgba(200, 169, 126, 0.4);">40%</div>
+                        <div class="opacity-chip" style="background: rgba(200, 169, 126, 0.15);">15%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 05. Bronze Empório 481 -->
+            <div class="color-swatch-card reveal reveal-delay-1">
+                <div class="swatch-display" style="background: #70533B;">
+                    <span class="swatch-badge" style="background: #FAFAF9; color: #70533B;">Craft Bronze</span>
+                </div>
+                <div class="swatch-body">
+                    <div class="swatch-name">Bronze Terroso 481</div>
+                    <div class="swatch-role">Acento Secundário Gastronômico</div>
+                    <div class="swatch-details">
+                        HEX: <strong>#70533B</strong><br/>
+                        RGB: rgb(112, 83, 59)<br/>
+                        HSL: hsl(27°, 31%, 34%)<br/>
+                        Contraste: <strong>6.2:1 vs #FAFAF9 (AAA Large)</strong><br/>
+                        Uso: Linhas divisórias, tags de corte especial, hover.
+                    </div>
+                    <div class="opacity-chips">
+                        <div class="opacity-chip" style="background: rgba(112, 83, 59, 1.0); color:#fff;">100%</div>
+                        <div class="opacity-chip" style="background: rgba(112, 83, 59, 0.8); color:#fff;">80%</div>
+                        <div class="opacity-chip" style="background: rgba(112, 83, 59, 0.4); color:#fff;">40%</div>
+                        <div class="opacity-chip" style="background: rgba(112, 83, 59, 0.15);">15%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 06. Muted Gray Neutral -->
+            <div class="color-swatch-card reveal reveal-delay-2">
+                <div class="swatch-display" style="background: #6E6A64;">
+                    <span class="swatch-badge" style="background: #FFF; color: #6E6A64;">Neutral Text</span>
+                </div>
+                <div class="swatch-body">
+                    <div class="swatch-name">Cinza Quente</div>
+                    <div class="swatch-role">Texto Secundário &amp; Parágrafos Suaves</div>
+                    <div class="swatch-details">
+                        HEX: <strong>#6E6A64</strong><br/>
+                        RGB: rgb(110, 106, 100)<br/>
+                        HSL: hsl(36°, 5%, 41%)<br/>
+                        Contraste: <strong>5.1:1 vs #FAFAF9 (AA Pass)</strong><br/>
+                        Uso: Descrições de produto, placeholders, metadados.
+                    </div>
+                    <div class="opacity-chips">
+                        <div class="opacity-chip" style="background: rgba(110, 106, 100, 1.0); color:#fff;">100%</div>
+                        <div class="opacity-chip" style="background: rgba(110, 106, 100, 0.8); color:#fff;">80%</div>
+                        <div class="opacity-chip" style="background: rgba(110, 106, 100, 0.4); color:#fff;">40%</div>
+                        <div class="opacity-chip" style="background: rgba(110, 106, 100, 0.15);">15%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GRADIENTES E REGRAS CONTEXTUAIS -->
+        <div class="comp-cell reveal reveal-delay-3" style="margin-top: 3.5rem;">
+            <div class="comp-cell-title">
+                <span>Participação em Gradientes &amp; Regras Contextuais</span>
+                <span class="comp-cell-badge">CSS Recipes</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div>
+                    <div style="height: 60px; border-radius: 6px; background: linear-gradient(135deg, #C8A97E 0%, #70533B 100%); margin-bottom: 0.8rem;"></div>
+                    <strong style="font-size: 0.85rem;">Gradiente Ouro &amp; Bronze</strong>
+                    <div class="code-tag" style="margin-top: 0.3rem;">linear-gradient(135deg, #C8A97E 0%, #70533B 100%)</div>
+                    <p style="font-size: 0.78rem; color: var(--gray); margin-top: 0.4rem;">Aplicado em botões de status especial, selos de qualidade e destaques de produto.</p>
+                </div>
+                <div>
+                    <div style="height: 60px; border-radius: 6px; background: linear-gradient(135deg, #FFFFFF 0%, #F5F2EC 100%); border: 1px solid rgba(200, 169, 126, 0.3); margin-bottom: 0.8rem;"></div>
+                    <strong style="font-size: 0.85rem;">Gradiente Luz &amp; Superfície</strong>
+                    <div class="code-tag" style="margin-top: 0.3rem;">linear-gradient(135deg, #FFFFFF 0%, #F5F2EC 100%)</div>
+                    <p style="font-size: 0.78rem; color: var(--gray); margin-top: 0.4rem;">Utilizado como fundo de modais e cartões para conferir volumetria sutil e elegância.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIVISOR -->
+    <div class="line-divisor reveal">
+        <span class="line-divisor-icon">♦</span>
+    </div>
+
+    <!-- ============================================================
+         4. COMPONENTES UI (COM ANIMAÇÕES & INTERAÇÃO)
+         Buttons, Inputs, Cards, Navbars, Sections, Modals, Badges, Tooltips
+         ============================================================ -->
+    <section class="ds-section" id="components">
+        <div class="ds-header reveal">
+            <div class="section-tag">
+                <span class="section-tag-line"></span>
+                <span class="section-tag-text">Sistema de Componentes Interativos</span>
+            </div>
+            <h2 class="section-title">03. <span class="italic">Componentes UI</span> &amp; Estados</h2>
+            <p class="about-text" style="max-width: 820px;">
+                Componentes atômicos desenhados com precisão matemática. Todos possuem micro-animações ativas de hover, foco e transição, utilizando as classes CSS oficiais de ambos os sistemas integrados.
+            </p>
+        </div>
+
+        <div class="comp-showcase-grid">
+            <!-- 01. BOTÕES (BUTTONS SPEC) -->
+            <div class="comp-cell reveal reveal-delay-1">
+                <div class="comp-cell-title">
+                    <span>01. Botões &amp; Ações</span>
+                    <span class="comp-cell-badge">.btn-primary · .btn-outline</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+                    <div>
+                        <div style="font-size: 0.7rem; letter-spacing: 0.15em; color: var(--gold-dark); text-transform: uppercase; margin-bottom: 0.6rem;">Botão Primário (Slide Fill &amp; Glow)</div>
+                        <a class="btn-primary btn-pill btn-glow" href="#!">
+                            <span>Confirmar Pedido</span>
+                            <svg aria-hidden="true" class="iconify" data-icon="solar:check-circle-bold" height="1.1em" width="1.1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10zm-1.5-6l7-7l-1.41-1.41L10.5 13.17l-2.09-2.08L7 12.5l3.5 3.5z" fill="currentColor"/></svg>
+                        </a>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.7rem; letter-spacing: 0.15em; color: var(--gold-dark); text-transform: uppercase; margin-bottom: 0.6rem;">Botão Secundário Dark Pill</div>
+                        <a class="btn-secondary" href="#!">
+                            <span>Explorar Cardápio</span>
+                            <svg aria-hidden="true" class="iconify" data-icon="solar:arrow-right-linear" height="1.1em" width="1.1em" xmlns="http://www.w3.org/2000/svg"><path d="M4 12h16m0 0l-6-6m6 6l-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg>
+                        </a>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.7rem; letter-spacing: 0.15em; color: var(--gold-dark); text-transform: uppercase; margin-bottom: 0.6rem;">Botão Outline com Arrow Tilt</div>
+                        <a class="btn-outline" href="#!">
+                            <span>Ver Ficha Técnica</span>
+                            <svg aria-hidden="true" class="iconify" data-icon="solar:arrow-right-linear" height="1.2em" width="1.2em" xmlns="http://www.w3.org/2000/svg"><path d="M4 12h16m0 0l-6-6m6 6l-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg>
+                        </a>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.7rem; letter-spacing: 0.15em; color: var(--gray); text-transform: uppercase; margin-bottom: 0.6rem;">Estado Desabilitado (Disabled)</div>
+                        <a class="btn-primary btn-pill" href="#!" style="opacity: 0.45; pointer-events: none; filter: grayscale(80%);">
+                            <span>Indisponível</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 02. INPUTS & FORMULÁRIOS -->
+            <div class="comp-cell reveal reveal-delay-2">
+                <div class="comp-cell-title">
+                    <span>02. Campos de Formulário</span>
+                    <span class="comp-cell-badge">Input · Select · Focus</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+                    <div class="form-field">
+                        <label class="form-label">Nome Completo</label>
+                        <input class="input-text" type="text" placeholder="Ex: Alexandre de Alencar"/>
+                        <span class="field-helper">Digite seu nome conforme documento</span>
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Corte ou Serviço Desejado</label>
+                        <select class="select-box">
+                            <option>Wagyu A5 BMS 10 — Corte Especial 481</option>
+                            <option>Corte Exclusivo + Toalha Quente</option>
+                            <option>Bife Ancho Dry Aged Reserva</option>
+                            <option>Ritual Completo O Real</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">E-mail (Estado com Alerta de Validação)</label>
+                        <input class="input-text input-error" type="email" value="alexandre@invalido"/>
+                        <span class="field-helper error">Por favor, insira um e-mail válido</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 03. BADGES & TOOLTIPS INTERATIVOS -->
+            <div class="comp-cell reveal reveal-delay-3">
+                <div class="comp-cell-title">
+                    <span>03. Badges &amp; Tooltips</span>
+                    <span class="comp-cell-badge">Micro-Feedback</span>
+                </div>
+                <div>
+                    <div style="font-size: 0.7rem; letter-spacing: 0.15em; color: var(--gold-dark); text-transform: uppercase; margin-bottom: 0.8rem;">Variantes de Badges</div>
+                    <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+                        <span class="badge badge-gold"><span class="badge-pulse-dot"></span> Ativo no Sistema</span>
+                        <span class="badge badge-outline">Edição Limitada</span>
+                        <span class="badge badge-dark">BMS 10 Máximo</span>
+                    </div>
+                </div>
+                <div style="margin-top: 1.5rem;">
+                    <div style="font-size: 0.7rem; letter-spacing: 0.15em; color: var(--gold-dark); text-transform: uppercase; margin-bottom: 0.8rem;">Tooltips Interativos (Passe o Mouse)</div>
+                    <div style="display: flex; gap: 1.5rem; align-items: center;">
+                        <div class="tooltip-container">
+                            <span class="badge badge-outline" style="cursor: help;">
+                                Wagyu Kagoshima ℹ️
+                            </span>
+                            <div class="tooltip-bubble">Certificação Japonesa Oficial A5 BMS 10</div>
+                        </div>
+
+                        <div class="tooltip-container">
+                            <span class="btn-outline" style="cursor: pointer; font-size: 0.75rem;">
+                                Parâmetros de Entrega
+                            </span>
+                            <div class="tooltip-bubble">Caixa térmica especial com gelo seco e lacre blindado</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 1.5rem;">
+                    <div style="font-size: 0.7rem; letter-spacing: 0.15em; color: var(--gold-dark); text-transform: uppercase; margin-bottom: 0.8rem;">Janela Modal Interativa</div>
+                    <button class="btn-primary btn-pill" onclick="document.getElementById('demoModalDS').classList.add('active')">
+                        <span>Disparar Modal de Teste</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 04. CARDS DE SERVIÇO & PRODUTO GASTRONÔMICO (FULL WIDTH) -->
+            <div class="comp-cell reveal reveal-delay-1" style="grid-column: 1 / -1;">
+                <div class="comp-cell-title">
+                    <span>04. Cards Ricos (Fusão Barbershop + Empório 481)</span>
+                    <span class="comp-cell-badge">.service-card · .food-card</span>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem;">
+                    <!-- Card 1: Blade & Co Service Card -->
+                    <div class="service-card" style="border: 1px solid rgba(200, 169, 126, 0.25); background: #FFFFFF; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+                        <svg aria-hidden="true" class="iconify service-icon" data-icon="solar:scissors-bold" height="1em" style="color: var(--gold-dark);" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M6.654 1.633a.75.75 0 0 0-1.308.735l5.794 10.304l-2.708 4.815a3.751 3.751 0 1 0-.136 3.303L12 14.202l3.704 6.588a3.75 3.75 0 1 0-.136-3.303l-2.708-4.815l5.794-10.304a.75.75 0 0 0-1.308-.735L12 11.142z" fill="currentColor"/></svg>
+                        <svg aria-hidden="true" class="iconify service-arrow" data-icon="solar:arrow-right-up-linear" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M6 18L18 6m0 0H9m9 0v9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg>
+                        <h3 class="service-name">CORTE EXCLUSIVO COM NAVALHA</h3>
+                        <p class="service-desc">Consulta individualizada, preparação clássica com toalhas quentes perfumadas e estilização de alta precisão.</p>
+                        <div class="service-price-row">
+                            <span class="service-price">R$ 120</span>
+                            <span class="service-duration">45 Min</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Empório 481 Wagyu Gastronomy Card -->
+                    <div class="food-card">
+                        <div class="food-card-img">
+                            <span class="food-card-tag">BMS 10 · Exclusivo</span>
+                            <img alt="Bife de Chorizo Wagyu 481" src="emporio481.com.br/assets/Ancho_481_04.jpg"/>
+                        </div>
+                        <div class="food-card-content">
+                            <h3 class="food-card-title">BIFE ANCHO 481 WAGYU A5</h3>
+                            <p class="food-card-desc">Corte retirado do lombo central, apresentando uma rede de gordura intramuscular que derrete em baixa temperatura, gerando suculência incomparável.</p>
+                            <div class="food-card-bottom">
+                                <div>
+                                    <span style="font-size: 0.7rem; color: var(--gray); font-family: var(--mono); text-transform: uppercase;">Porção 400g</span>
+                                    <div class="food-price">R$ 389,00</div>
+                                </div>
+                                <a class="btn-primary btn-pill" href="#!" style="padding: 0.8rem 1.6rem; font-size: 0.65rem;">
+                                    <span>Adicionar</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Empório 481 Picanha Premium -->
+                    <div class="food-card">
+                        <div class="food-card-img">
+                            <span class="food-card-tag" style="background: var(--white); color: #fff; border-color: var(--white);">Reserva 481</span>
+                            <img alt="Picanha Seleção Especial 481" src="emporio481.com.br/assets/Picanha_481_04.webp"/>
+                        </div>
+                        <div class="food-card-content">
+                            <h3 class="food-card-title">PICANHA SUPREMA DRY AGED</h3>
+                            <p class="food-card-desc">Maturada a seco por 45 dias em ambiente controlado com lâminas de sal do Himalaia, concentrando sabores intensos de nozes e manteiga.</p>
+                            <div class="food-card-bottom">
+                                <div>
+                                    <span style="font-size: 0.7rem; color: var(--gray); font-family: var(--mono); text-transform: uppercase;">Peça Inteira ~1.1kg</span>
+                                    <div class="food-price">R$ 495,00</div>
+                                </div>
+                                <a class="btn-primary btn-pill" href="#!" style="padding: 0.8rem 1.6rem; font-size: 0.65rem;">
+                                    <span>Adicionar</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIVISOR -->
+    <div class="line-divisor reveal">
+        <span class="line-divisor-icon">♦</span>
+    </div>
+
+    <!-- ============================================================
+         5. ÍCONES (SOLAR ICONS RUNTIME & CATEGORIAS)
+         ============================================================ -->
+    <section class="ds-section ds-section-alt" id="icons">
+        <div class="ds-header reveal">
+            <div class="section-tag">
+                <span class="section-tag-line"></span>
+                <span class="section-tag-text">Biblioteca Vetorial Solar</span>
+            </div>
+            <h2 class="section-title">04. <span class="italic">Ícones</span> &amp; Semiótica</h2>
+            <p class="about-text" style="max-width: 820px;">
+                Padronização vetorial baseada na coleção <strong>Solar Icons</strong>, carregada via Iconify runtime. Apresentam pesos em <code>linear</code> e <code>bold</code> com espessura uniforme de 1.5px e escalabilidade SVG perfeita.
+            </p>
+        </div>
+
+        <div class="icon-grid reveal reveal-delay-1">
+            <div class="icon-card">
+                <svg aria-hidden="true" class="iconify" data-icon="solar:crown-bold" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="m20.092 14.326l.193-1.894c.103-1.011.17-1.678.117-2.099h.02c.871 0 1.578-.746 1.578-1.666S21.293 7 20.421 7s-1.579.746-1.579 1.667c0 .416.145.797.384 1.089c-.343.223-.792.695-1.468 1.405c-.52.547-.78.82-1.07.863a.84.84 0 0 1-.473-.07c-.268-.124-.447-.462-.804-1.139L13.527 7.25c-.22-.417-.405-.766-.572-1.047c.683-.368 1.15-1.117 1.15-1.98C14.105 2.994 13.163 2 12 2s-2.105.995-2.105 2.222c0 .864.467 1.613 1.15 1.98c-.167.282-.351.631-.572 1.048L8.59 10.816c-.358.676-.537 1.014-.805 1.139a.84.84 0 0 1-.473.07c-.29-.043-.55-.317-1.07-.864c-.676-.71-1.125-1.182-1.468-1.405c.24-.292.384-.673.384-1.09C5.158 7.747 4.45 7 3.578 7C2.708 7 2 7.746 2 8.667c0 .92.707 1.666 1.579 1.666h.019c-.054.42.014 1.088.117 2.099l.193 1.894c.107 1.051.196 2.051.306 2.952h15.572c.11-.9.199-1.901.306-2.952M10.855 22h2.29c2.985 0 4.478 0 5.474-.94c.434-.412.71-1.152.908-2.116H4.473c.198.964.473 1.704.908 2.115C6.377 22 7.87 22 10.855 22" fill="currentColor"/></svg>
+                <div class="icon-label">solar:crown-bold</div>
+            </div>
+
+            <div class="icon-card">
+                <svg aria-hidden="true" class="iconify" data-icon="solar:scissors-bold" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M6.654 1.633a.75.75 0 0 0-1.308.735l5.794 10.304l-2.708 4.815a3.751 3.751 0 1 0-.136 3.303L12 14.202l3.704 6.588a3.75 3.75 0 1 0-.136-3.303l-2.708-4.815l5.794-10.304a.75.75 0 0 0-1.308-.735L12 11.142z" fill="currentColor"/></svg>
+                <div class="icon-label">solar:scissors-bold</div>
+            </div>
+
+            <div class="icon-card">
+                <svg aria-hidden="true" class="iconify" data-icon="solar:fire-bold" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12.832 21.801c3.126-.626 7.168-2.875 7.168-8.69c0-5.291-3.873-8.815-6.658-10.434c-.619-.36-1.342.113-1.342.828v1.828c0 1.442-.606 4.074-2.29 5.169c-.86.559-1.79-.278-1.894-1.298l-.086-.838c-.1-.974-1.092-1.565-1.87-.971C4.461 8.46 3 10.33 3 13.11C3 20.221 8.289 22 10.933 22q.232 0 .484-.015C10.111 21.874 8 21.064 8 18.444c0-2.05 1.495-3.435 2.631-4.11c.306-.18.663.055.663.41v.59c0 .45.175 1.155.59 1.637c.47.546 1.159-.026 1.214-.744c.018-.226.246-.37.442-.256c.641.375 1.46 1.175 1.46 2.473c0 2.048-1.129 2.99-2.168 3.357" fill="currentColor"/></svg>
+                <div class="icon-label">solar:fire-bold</div>
+            </div>
+
+            <div class="icon-card">
+                <svg aria-hidden="true" class="iconify" data-icon="solar:star-bold" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9.153 5.408C10.42 3.136 11.053 2 12 2s1.58 1.136 2.847 3.408l.328.588c.36.646.54.969.82 1.182s.63.292 1.33.45l.636.144c2.46.557 3.689.835 3.982 1.776c.292.94-.546 1.921-2.223 3.882l-.434.507c-.476.557-.715.836-.822 1.18c-.107.345-.071.717.001 1.46l.066.677c.253 2.617.38 3.925-.386 4.506s-1.918.051-4.22-1.009l-.597-.274c-.654-.302-.981-.452-1.328-.452s-.674.15-1.328.452l-.596.274c-2.303 1.06-3.455 1.59-4.22 1.01c-.767-.582-.64-1.89-.387-4.507l.066-.676c.072-.744.108-1.116 0-1.46c-.106-.345-.345-.624-.821-1.18l-.434-.508c-1.677-1.96-2.515-2.941-2.223-3.882S3.58 8.328 6.04 7.772l.636-.144c.699-.158 1.048-.237 1.329-.45s.46-.536.82-1.182z" fill="currentColor"/></svg>
+                <div class="icon-label">solar:star-bold</div>
+            </div>
+
+            <div class="icon-card">
+                <svg aria-hidden="true" class="iconify" data-icon="solar:magic-stick-3-bold" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M3.845 3.845a2.883 2.883 0 0 0 0 4.077L5.432 9.51l.038-.04l4-4l.04-.038l-1.588-1.587a2.883 2.883 0 0 0-4.077 0m6.723 2.645l-.038.04l-4 4l-.04.038l9.588 9.588a2.884 2.884 0 0 0 4.078-4.078z" fill="currentColor"/></svg>
+                <div class="icon-label">solar:magic-stick</div>
+            </div>
+
+            <div class="icon-card">
+                <svg aria-hidden="true" class="iconify" data-icon="solar:shield-check-bold" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10zm-1.63-7.5l5.5-5.5l-1.42-1.42l-4.08 4.09l-1.92-1.93l-1.42 1.42l3.34 3.34z" fill="currentColor"/></svg>
+                <div class="icon-label">solar:shield-check</div>
+            </div>
+
+            <div class="icon-card">
+                <svg aria-hidden="true" class="iconify" data-icon="solar:cart-large-4-bold" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M3.464 2.464A2 2 0 0 0 2 4.14V7a2 2 0 0 0 2 2h1.36l1.24 7.44A3.5 3.5 0 0 0 10.05 19h7.9a3.5 3.5 0 0 0 3.45-2.925L22.5 9.5a2 2 0 0 0-1.97-2.5H5.45l-.33-2a2 2 0 0 0-1.656-1.536z" fill="currentColor"/></svg>
+                <div class="icon-label">solar:cart-large</div>
+            </div>
+
+            <div class="icon-card">
+                <svg aria-hidden="true" class="iconify" data-icon="solar:map-point-bold" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M12 2c-4.418 0-8 4.003-8 8.5c0 4.462 2.553 9.312 6.537 11.174a3.45 3.45 0 0 0 2.926 0C17.447 19.812 20 14.962 20 10.5C20 6.003 16.418 2 12 2m0 10a2 2 0 1 0 0-4a2 2 0 0 0 0 4" fill="currentColor" fill-rule="evenodd"/></svg>
+                <div class="icon-label">solar:map-point</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIVISOR -->
+    <div class="line-divisor reveal">
+        <span class="line-divisor-icon">♦</span>
+    </div>
+
+    <!-- ============================================================
+         6. ANIMAÇÕES & MOVIMENTO (MOTION SYSTEM)
+         Surgimento com delays, background gradients, button fills e micro-interações
+         ============================================================ -->
+    <section class="ds-section" id="motion">
+        <div class="ds-header reveal">
+            <div class="section-tag">
+                <span class="section-tag-line"></span>
+                <span class="section-tag-text">Cinemática &amp; Interações</span>
+            </div>
+            <h2 class="section-title">05. <span class="italic">Animações</span> &amp; Transições</h2>
+            <p class="about-text" style="max-width: 820px;">
+                O movimento reforça a sofisticação do design. Transições usam funções de aceleração inspiradas na física (<code>--ease-out-expo</code>) garantindo respostas imediatas ao toque e surgimentos fluidos acionados via <code>IntersectionObserver</code>.
+            </p>
+        </div>
+
+        <div class="motion-grid">
+            <!-- Demonstração 1: Scroll Reveal -->
+            <div class="motion-card reveal reveal-delay-1">
+                <strong style="font-size: 1.1rem; font-family: var(--display); letter-spacing: 0.05em;">01. Scroll Reveal com Delays</strong>
+                <p style="font-size: 0.8rem; color: var(--gray); line-height: 1.6;">
+                    Classes <code>.reveal</code>, <code>.reveal-delay-1</code>, <code>.reveal-delay-2</code>, <code>.reveal-delay-3</code>. Transição de 0.8s com translação vertical de 40px e opacidade progressiva.
+                </p>
+                <div class="code-block">
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s var(--ease-out-expo);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}</div>
+            </div>
+
+            <!-- Demonstração 2: Button Slide Fill -->
+            <div class="motion-card reveal reveal-delay-2">
+                <strong style="font-size: 1.1rem; font-family: var(--display); letter-spacing: 0.05em;">02. Preenchimento de Botão (Hover Slide)</strong>
+                <p style="font-size: 0.8rem; color: var(--gray); line-height: 1.6;">
+                    Pseudo-elemento <code>::before</code> que desliza lateralmente de <code>-101%</code> para <code>0%</code> ao passar o cursor, criando efeito de luxo sem travamentos de repintura (GPU accelerated).
+                </p>
+                <div class="motion-demo-box">
+                    <a class="btn-primary btn-pill" href="#!">
+                        <span>Passe o Mouse Aqui</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Demonstração 3: Pulse & Shimmer -->
+            <div class="motion-card reveal reveal-delay-3">
+                <strong style="font-size: 1.1rem; font-family: var(--display); letter-spacing: 0.05em;">03. Pulsação e Shimmering</strong>
+                <p style="font-size: 0.8rem; color: var(--gray); line-height: 1.6;">
+                    Usado para status de pedidos em tempo real, selos especiais e estados de carregamento suave (Skeleton Loader) preservando o tema branco.
+                </p>
+                <div class="motion-demo-box" style="flex-direction: column; gap: 1rem;">
+                    <div class="pulse-box"></div>
+                    <div class="shimmer-bar"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER DA DOCUMENTAÇÃO DO DESIGN SYSTEM -->
+    <footer class="footer" style="margin-top: 4rem; background: #FFFFFF; border-top: 1px solid rgba(200, 169, 126, 0.2);">
+        <div class="footer-top" style="padding-bottom: 3rem;">
+            <div>
+                <div class="footer-brand-name" style="color: var(--white);">
+                    TAQUARI <span class="gold">&amp;</span> CO.
+                </div>
+                <p class="footer-brand-desc" style="color: var(--gray);">
+                    Design System de alta performance e acabamento artesanal. Integração refinada entre a atmosfera tradicional de Blade &amp; Co. e o cardápio premium do Empório 481.
+                </p>
+                <div style="margin-top: 1.5rem; display: flex; gap: 0.8rem;">
+                    <span class="badge badge-outline">Tema Claro Nativo</span>
+                    <span class="badge badge-dark">100% Responsivo</span>
+                </div>
+            </div>
+            <div class="footer-col">
+                <div class="footer-col-title" style="color: var(--white);">SUMÁRIO DO SISTEMA</div>
+                <ul>
+                    <li><a href="#typography">01. Tipografia &amp; Hierarquia</a></li>
+                    <li><a href="#colors">02. Tokens de Cor &amp; WCAG</a></li>
+                    <li><a href="#components">03. Componentes Atômicos</a></li>
+                    <li><a href="#icons">04. Solar Icons</a></li>
+                    <li><a href="#motion">05. Cinemática &amp; Movimento</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom" style="border-top: 1px solid rgba(200, 169, 126, 0.15);">
+            <p style="color: var(--gray);">© 2026 TAQUARI DESIGN SYSTEM. Todos os direitos reservados.</p>
+            <div class="footer-bottom-links">
+                <a href="#hero">Voltar ao Topo ↑</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL INTERATIVO COMPLETO -->
+    <div class="modal-backdrop" id="demoModalDS">
+        <div class="modal-window">
+            <div class="modal-exit-btn" onclick="document.getElementById('demoModalDS').classList.remove('active')">&times;</div>
+            <svg aria-hidden="true" class="iconify" data-icon="solar:crown-bold" height="3em" style="color: var(--gold); margin-bottom: 1rem;" width="3em" xmlns="http://www.w3.org/2000/svg"><path d="m20.092 14.326l.193-1.894c.103-1.011.17-1.678.117-2.099h.02c.871 0 1.578-.746 1.578-1.666S21.293 7 20.421 7s-1.579.746-1.579 1.667c0 .416.145.797.384 1.089c-.343.223-.792.695-1.468 1.405c-.52.547-.78.82-1.07.863a.84.84 0 0 1-.473-.07c-.268-.124-.447-.462-.804-1.139L13.527 7.25c-.22-.417-.405-.766-.572-1.047c.683-.368 1.15-1.117 1.15-1.98C14.105 2.994 13.163 2 12 2s-2.105.995-2.105 2.222c0 .864.467 1.613 1.15 1.98c-.167.282-.351.631-.572 1.048L8.59 10.816c-.358.676-.537 1.014-.805 1.139a.84.84 0 0 1-.473.07c-.29-.043-.55-.317-1.07-.864c-.676-.71-1.125-1.182-1.468-1.405c.24-.292.384-.673.384-1.09C5.158 7.747 4.45 7 3.578 7C2.708 7 2 7.746 2 8.667c0 .92.707 1.666 1.579 1.666h.019c-.054.42.014 1.088.117 2.099l.193 1.894c.107 1.051.196 2.051.306 2.952h15.572c.11-.9.199-1.901.306-2.952M10.855 22h2.29c2.985 0 4.478 0 5.474-.94c.434-.412.71-1.152.908-2.116H4.473c.198.964.473 1.704.908 2.115C6.377 22 7.87 22 10.855 22" fill="currentColor"/></svg>
+            <h3 style="font-family: var(--display); font-size: 2.2rem; letter-spacing: 0.05em; margin-bottom: 0.5rem; color: var(--white);">MENSAGEM DO SISTEMA</h3>
+            <p style="font-size: 0.95rem; color: var(--gray-light); line-height: 1.7; margin-bottom: 2rem;">
+                Janela modal interativa exibida com suavização <code>cubic-bezier</code> e desfoque dinâmico de fundo (backdrop-filter: blur(16px)).
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <button class="btn-primary btn-pill" onclick="document.getElementById('demoModalDS').classList.remove('active')">
+                    <span>Confirmar e Prosseguir</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE OBSERVER PARA SCROLL REVEAL E CONTROLE DA NAVEGAÇÃO -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Scroll Reveal via IntersectionObserver
+            const revealElements = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.08,
+                rootMargin: '0px 0px -40px 0px'
+            });
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // Navbar Scrolled Effect
+            const nav = document.getElementById('nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }, { passive: true });
+
+            // Mobile Navigation Toggle
+            const hamburger = document.getElementById('hamburger');
+            const mobileNav = document.getElementById('mobileNav');
+            if (hamburger && mobileNav) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    mobileNav.classList.toggle('active');
+                });
+            }
+        });
+
+        function closeMobileNav() {
+            const hamburger = document.getElementById('hamburger');
+            const mobileNav = document.getElementById('mobileNav');
+            if (hamburger) hamburger.classList.remove('active');
+            if (mobileNav) mobileNav.classList.remove('active');
+        }
+    </script>
+</body>
+</html>

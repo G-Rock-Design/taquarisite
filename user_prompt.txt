@@ -1,0 +1,377 @@
+<USER_REQUEST>
+
+Crie um site completo, responsivo e visualmente refinado para o Açougue Taquari, utilizando as fotografias fornecidas e o arquivo design_system.html como referência estética.
+O objetivo é apresentar o estabelecimento, destacar os cortes especiais e os produtos para churrasco, explicar os serviços disponíveis e facilitar consultas e visitas à loja.
+Entregue a implementação funcionando. Não se limite a elaborar um plano.
+1. REFERÊNCIAS E PRIORIDADES
+Leia o arquivo:
+C:\Users\Marcos Lima\Desktop\taquari site\ref\design_system.html
+Inspecione também as imagens e os demais arquivos disponíveis no projeto.
+Use as referências desta forma:
+Este prompt define conteúdo, escopo e funcionalidades.
+O design system define tipografia, composição, componentes e linguagem de movimento.
+As fotografias documentam a identidade visual, o ambiente e os produtos.
+Caso exista um print de referência de layout, use-o para orientar a composição da Hero.
+O design system contém conteúdos demonstrativos de outras empresas. Aproveite sua estética, mas não copie informações de barbearia, Blade & Co., Empório 481, produtos, preços, certificações ou alegações comerciais presentes nos exemplos.
+O nome da empresa é Açougue Taquari. Não utilize “Taquari & Co.” nem “WPR”.
+2. POSICIONAMENTO E OBJETIVO COMERCIAL
+O Taquari se apresenta como um açougue de cortes especiais com carnes nobres, conveniência e delivery.
+As referências mostram:
+Carnes bovinas e cortes especiais.
+Picanhas e carnes embaladas a vácuo.
+Bebidas.
+Temperos e complementos.
+Carvão, briquetes e itens para defumação.
+Churrasqueiras e grelhas.
+Facas, espetos e acessórios.
+A comunicação deve transmitir especialização, variedade para churrasco e proximidade com o cliente.
+Construa um site de apresentação e catálogo para consulta. Não implemente checkout, pagamento, estoque fictício ou carrinho sem uma integração real.
+A principal conversão é iniciar uma conversa para consultar produtos. A segunda é facilitar a visita à loja.
+3. IDENTIDADE VISUAL
+Preserve o tema claro e editorial do design system:
+Fundos claros e quentes.
+Tipografia de destaque expressiva.
+Alternância entre lettering preenchido e contornado.
+Espaço em branco bem distribuído.
+Fotografias valorizadas.
+Composições assimétricas equilibradas.
+Linhas finas e detalhes gráficos discretos.
+Botões em formato de cápsula.
+Bordas suaves, sombras contidas e microinterações elegantes.
+Traduza a identidade física da loja: fachada preta e grafite, letreiro branco com faixas amarelas, mobiliário de madeira e produtos ligados ao churrasco.
+Use algumas seções escuras para criar contraste, mantendo o caráter predominantemente claro do design system.
+Evite transformar todas as seções em grades de cartões iguais. Varie a composição conforme a função do conteúdo.
+4. PALETA DE CORES
+Centralize as cores em tokens CSS semânticos:
+Fundo principal: #F5F3EE.
+Superfície branca: #FFFFFF.
+Preto carvão: #141414.
+Grafite: #2B2D30.
+Amarelo Taquari: #F2C21A.
+Bege quente: #E5D8C5.
+Marrom madeira: #79513A.
+Vermelho carne: #8C2935, somente como apoio pontual.
+Esses códigos são aproximações propostas a partir das fotografias.
+Substitua os detalhes dourados do design system pelo amarelo da marca quando adequado. Use o marrom e o bege para conectar a interface à madeira presente no estabelecimento.
+Botões amarelos devem ter texto escuro. Verifique o contraste de textos, contornos, estados de foco e informações secundárias.
+O arquivo original possui variáveis com significados invertidos, como --black representando fundo claro. Prefira nomes claros: --color-bg, --color-text, --color-accent.
+5. TIPOGRAFIA
+Preserve as famílias do design system:
+Bebas Neue para títulos de grande impacto.
+Inter para textos, navegação e botões.
+Playfair Display para detalhes editoriais pontuais.
+JetBrains Mono, opcionalmente, para pequenas legendas.
+Carregue apenas fontes e pesos utilizados e disponíveis.
+Use clamp() para tipografia fluida. Ajuste as quebras de linha com cuidado em cada tamanho de tela.
+Reserve caixa alta para títulos e rótulos curtos. Mantenha os parágrafos confortáveis, com aproximadamente 16–18 pixels e entrelinha generosa.
+Não reproduza tamanhos excessivamente pequenos do arquivo de referência quando prejudicarem a leitura.
+6. DADOS DISPONÍVEIS
+Nome:
+Açougue Taquari.
+Descrição:
+Açougue de cortes especiais.
+Apresentação publicada:
+Carnes nobres · Conveniência · Delivery.
+Endereço:
+Avenida Primavera, 256 — Jardim Primavera, Duque de Caxias — RJ, 25215-255.
+Instagram:
+[https://www.instagram.com/acouguetaquari/](https://www.instagram.com/acouguetaquari/)
+Horários presentes nas referências:
+Segunda-feira: fechado.
+Terça a sexta-feira: 10h às 18h30.
+Sábado: 9h às 19h.
+Domingo: 9h às 14h.
+Contatos divergentes:
+Cadastro mostrado nas imagens: (21) 99893-1657.
+WhatsApp impresso na bandeira: (21) 97263-1488.
+Organize essas informações em uma configuração central fácil de atualizar.
+Não escolha silenciosamente um dos números como contato oficial. Enquanto não houver confirmação, direcione os botões de consulta ao Instagram e identifique corretamente esse destino.
+Na entrega, registre a necessidade de confirmar telefone e horários. Não exponha comentários de desenvolvimento na interface.
+Não implemente indicação dinâmica de “Aberto agora” com base em dados ainda não confirmados.
+7. ESTRUTURA COMPLETA DO SITE
+Construa as seções abaixo, com transições visuais coerentes e hierarquia clara.
+A expressão “dobras” representa seções de conteúdo. Não force cada seção a ocupar uma tela inteira.
+DOBRA 1 — CABEÇALHO E HERO
+Cabeçalho:
+Marca à esquerda.
+Navegação: Cortes, Para o churrasco, A loja, Delivery e Localização.
+Botão “Consultar produtos”.
+Versão mobile com menu acessível.
+Comportamento fixo ou sticky discreto, sem ocupar espaço excessivo.
+Hero:
+Lettering expressivo à esquerda.
+Descrição e dois botões abaixo.
+Fotografia dominante e detalhes visuais à direita.
+Sobreposição de uma segunda fotografia apenas se houver material adequado.
+Linhas, legendas ou pequenos elementos gráficos inspirados no design system.
+Texto acima do título:
+“CORTES ESPECIAIS · JARDIM PRIMAVERA”
+Título:
+“SEU CHURRASCO
+COMEÇA AQUI.”
+Descrição:
+“Carnes nobres, bebidas, temperos e acessórios para o seu próximo churrasco. Conheça o Taquari em Jardim Primavera, Duque de Caxias.”
+Botão principal:
+“Consultar cortes”
+Botão secundário:
+“Como chegar”
+Informação discreta:
+“Av. Primavera, 256 · Duque de Caxias, RJ”
+Combine lettering preenchido e contornado mantendo a legibilidade e um único h1.
+No celular, apresente texto e botões antes da composição fotográfica.
+DOBRA 2 — VISÃO GERAL DO MIX
+Crie uma faixa ou seção compacta para mostrar a amplitude da oferta.
+Categorias:
+Cortes especiais.
+Bebidas e temperos.
+Carvão e defumação.
+Acessórios para churrasco.
+Cada item pode conter um ícone consistente e uma descrição curta.
+Use apenas categorias documentadas nas imagens. Não transforme esses itens em selos de qualidade ou certificações.
+Prefira composição estática bem organizada a uma faixa rolando continuamente.
+DOBRA 3 — CORTES EM DESTAQUE
+Título:
+“O corte que combina com o seu churrasco.”
+Descrição:
+“Explore alguns dos cortes apresentados pelo Taquari e consulte as opções disponíveis.”
+Organize uma seleção visual com fotografias adequadas.
+As referências mostram picanhas e publicações com identificações de Denver Steak, Short Rib e Bife Ancho. Verifique a legibilidade das imagens antes de atribuir nomes a cada fotografia.
+Para cada item, apresente:
+Nome verificável.
+Fotografia correspondente.
+Descrição curta, sem alegações não comprovadas.
+Ação “Consultar disponibilidade”.
+Não invente preço, peso, origem, certificação, classificação ou disponibilidade.
+Inclua uma observação discreta:
+“Consulte a disponibilidade dos cortes.”
+Se houver imagens suficientes, implemente filtros simples e reais. Caso contrário, prefira uma seleção enxuta sem controles desnecessários.
+Não crie cartões duplicados apenas para preencher a grade.
+DOBRA 4 — COMPLEMENTOS PARA O CHURRASCO
+Título:
+“Além da carne, os complementos do churrasco.”
+Apresente:
+Bebidas.
+Temperos e complementos.
+Carvão e briquetes.
+Itens para defumação.
+Facas e espetos.
+Grelhas e churrasqueiras.
+Use uma composição editorial com imagens de tamanhos variados, mantendo alinhamento e leitura claros.
+As fotografias devem corresponder às categorias apresentadas.
+Botão:
+“Consultar produtos”
+Evite afirmar disponibilidade permanente de marcas ou modelos vistos em publicações antigas.
+DOBRA 5 — DESTAQUE EDITORIAL
+Crie uma seção de contraste, preferencialmente escura, com fotografia ampla e texto curto.
+Título sugerido:
+“Da escolha do corte aos detalhes do preparo.”
+Texto:
+“Conheça as opções de carnes, temperos, bebidas e acessórios do Taquari para planejar seu próximo churrasco.”
+Botão:
+“Conversar sobre meu churrasco”
+Essa seção deve conectar os produtos à ocasião de consumo, sem repetir toda a apresentação anterior.
+Não anuncie kits, combos, serviços de preparo ou atendimento de churrasqueiro sem confirmação.
+Se utilizar uma fotografia de carne preparada, não sugira que o estabelecimento vende refeições prontas.
+DOBRA 6 — A LOJA
+Título:
+“Conheça o Taquari.”
+Texto sugerido:
+“Em Jardim Primavera, Duque de Caxias, o Taquari reúne cortes especiais e produtos para churrasco em uma loja com bebidas, temperos e acessórios.”
+Use fotografias reais da fachada e do interior.
+Valorize:
+Reconhecimento da fachada.
+Localização.
+Variedade exposta.
+Identidade visual.
+Ambiente com detalhes de madeira.
+Monte uma composição com imagem principal e imagens auxiliares, evitando repetir o layout dos produtos.
+Pode haver uma galeria acessível para ampliar as fotos. Se implementada, deve funcionar por teclado e fechar com Escape.
+Não invente história, ano de fundação, tradição familiar, equipe, premiações ou número de clientes.
+Mesas e cadeiras nas fotografias não comprovam serviço de restaurante. Não anuncie consumo no local sem confirmação.
+DOBRA 7 — CONSULTAS E DELIVERY
+Título:
+“Consulte os produtos e as opções de entrega.”
+O perfil fornecido anuncia delivery, mas não informa cobertura, taxas e prazos.
+Apresente um fluxo simples:
+Informe os produtos que procura.
+Consulte disponibilidade, valores e condições de entrega.
+Combine os detalhes com a loja.
+Botão:
+“Consultar entrega”
+Texto de apoio:
+“Consulte a área atendida, a taxa e o prazo para o seu endereço.”
+Não prometa entrega gratuita, imediata ou para toda a cidade.
+Não implemente cálculo de frete fictício, consulta de CEP sem integração ou formulário que simule envio.
+Enquanto o WhatsApp oficial estiver pendente, use o Instagram como canal de contato e indique isso de forma natural no texto do botão ou próximo dele.
+DOBRA 8 — INSTAGRAM
+Título:
+“Acompanhe o Taquari.”
+Texto:
+“Veja publicações de cortes, produtos e novidades no Instagram.”
+Botão:
+“Ver @acouguetaquari”
+Se houver fotografias originais adequadas, monte uma pequena composição visual.
+Não simule um feed atualizado automaticamente. Não exiba seguidores, curtidas ou datas inventadas.
+Evite incorporar capturas completas do Instagram com botões e elementos da interface.
+A seção pode funcionar apenas com uma composição fotográfica e um link real, sem integração externa.
+DOBRA 9 — PERGUNTAS FREQUENTES
+Crie um accordion acessível, com respostas curtas e fundamentadas:
+“ Onde fica o Taquari?”
+Avenida Primavera, 256, Jardim Primavera, Duque de Caxias — RJ.
+“Quais são os horários?”
+Apresente os horários fornecidos, centralizados na configuração do site. Oriente a consultar o atendimento em feriados.
+“O Taquari oferece delivery?”
+O serviço é anunciado no perfil. Consulte com a loja a disponibilidade para seu endereço, taxas e prazos.
+“Como consultar cortes e preços?”
+Entre em contato pelo canal disponível no site para consultar as opções e os valores.
+“Além das carnes, o que encontro na loja?”
+Bebidas, temperos e itens para churrasco, como carvão, grelhas, facas e acessórios, sujeitos à disponibilidade.
+Não crie respostas sobre pagamentos, trocas, origem dos produtos ou serviços que não foram documentados.
+Use elementos nativos como details e summary, ou implemente corretamente a semântica e o comportamento de teclado.
+DOBRA 10 — LOCALIZAÇÃO E HORÁRIOS
+Título:
+“Visite o Taquari em Jardim Primavera.”
+Apresente:
+Endereço completo.
+Horários em uma tabela ou lista legível.
+Fotografia da fachada.
+Botão “Traçar rota”.
+Link de contato.
+O botão de rota deve abrir o Google Maps com uma busca pelo nome e endereço completos, corretamente codificados.
+Use mapa incorporado somente se puder obter uma localização confiável. Não invente coordenadas.
+Uma composição com fachada, endereço e botão de rota é suficiente caso não haja integração de mapa.
+DOBRA 11 — RODAPÉ
+Inclua:
+Marca.
+Descrição curta: “Açougue de cortes especiais”.
+Links internos.
+Instagram.
+Endereço.
+Ano atual.
+Não invente CNPJ, razão social ou links para páginas inexistentes.
+Não crie políticas genéricas como se fossem documentos aprovados pela empresa.
+8. CONVERSÃO E NAVEGAÇÃO
+Distribua chamadas para ação nos pontos adequados, evitando repetição excessiva.
+Os links devem ter destino real e coerente com o rótulo.
+Enquanto o WhatsApp não estiver confirmado:
+Use o Instagram para consultas.
+Não use ícone de WhatsApp em links que abrem o Instagram.
+Centralize o canal de contato para permitir troca posterior.
+No celular, considere uma barra discreta com “Consultar” e “Como chegar”, desde que não cubra conteúdo nem prejudique a navegação.
+A navegação por âncoras deve considerar a altura do cabeçalho sticky.
+Todos os botões, filtros, menus, accordions e galerias apresentados devem funcionar.
+9. FOTOGRAFIAS E CONTEÚDO
+Priorize materiais reais.
+As referências incluem:
+Fachada preta e grafite com letras brancas e detalhes amarelos.
+Balcões, vitrines e mesas de madeira.
+Refrigeradores e bebidas.
+Carnes embaladas e fotografias de cortes.
+Facas, grelhas, churrasqueiras e carvão.
+Não reutilize automaticamente imagens de terceiros referenciadas no design system.
+Não atribua uma fotografia genérica a um corte, marca ou produto específico sem evidência.
+Se houver poucas imagens de boa qualidade, reduza a quantidade de elementos visuais e componha melhor com os materiais existentes.
+Não utilize arquivos inexistentes, URLs presumidas ou imagens quebradas.
+Preserve as proporções e defina dimensões para evitar saltos de layout.
+Use carregamento prioritário na imagem principal da Hero e lazy loading nas imagens abaixo da primeira tela.
+Use o logotipo original, se disponível. Caso contrário, utilize identificação tipográfica simples sem inventar um símbolo oficial.
+10. ANIMAÇÕES
+Use o movimento para reforçar hierarquia e acabamento.
+Implemente:
+Entrada coordenada da Hero.
+Revelação suave das seções ao entrarem na tela.
+Pequenos intervalos entre elementos relacionados.
+Hover de botões com preenchimento deslizante e movimento discreto de seta.
+Elevação ou zoom muito sutil nas fotografias.
+Transições suaves no menu e nos accordions.
+Mudança discreta do cabeçalho ao rolar a página.
+Use como referência:
+cubic-bezier(0.16, 1, 0.3, 1).
+Prefira animações com transform e opacity.
+Não use rolagem artificial, cursor personalizado, partículas, efeitos de fumaça ou parallax intenso.
+Não anime todo o conteúdo simultaneamente. Mantenha o ritmo suave e a leitura imediata.
+Respeite prefers-reduced-motion. Desative movimentos decorativos nessa condição.
+O conteúdo deve continuar visível e os links funcionais quando o JavaScript ou uma CDN falhar.
+11. TECNOLOGIA
+Use uma implementação simples, organizada e fácil de manter:
+index.html como página principal.
+CSS próprio com tokens, Grid, Flexbox e media queries.
+JavaScript para interações.
+Assets organizados em pasta própria.
+Sem exigência de compilação para visualizar o site.
+CSS e JavaScript podem ficar em arquivos separados para facilitar manutenção.
+Bibliotecas preferidas:
+GSAP via CDN para coordenar animações.
+ScrollTrigger somente se necessário para os efeitos de entrada ao rolar.
+Iconify com coleção Solar para ícones.
+Google Fonts para as famílias utilizadas.
+Use versões explícitas e URLs verificadas na documentação oficial.
+Não adicione várias bibliotecas para executar a mesma função. IntersectionObserver e CSS podem atender revelações simples.
+Evite Bootstrap, jQuery, carrosséis e bibliotecas de rolagem quando não houver necessidade.
+O design system depende de alguns caminhos de uma página exportada. Verifique esses arquivos e implemente os estilos essenciais no projeto final, sem dependências quebradas.
+12. RESPONSIVIDADE E ACESSIBILIDADE
+O site deve funcionar bem em celular, tablet e desktop.
+Verifique pelo menos as larguras:
+360, 390, 768, 1024 e 1440 pixels.
+Requisitos:
+Sem rolagem horizontal.
+Sem títulos cortados.
+Sem sobreposições indevidas.
+Áreas de toque adequadas.
+Foco visível.
+Navegação por teclado.
+Hierarquia correta de títulos.
+Apenas um h1.
+Textos alternativos úteis nas imagens.
+Ícones decorativos ocultos de tecnologias assistivas.
+Contraste adequado.
+Menu mobile com estado expandido identificável.
+Conteúdo acessível com movimento reduzido.
+Nada essencial disponível somente por hover.
+Não fixe a altura das seções quando isso puder cortar conteúdo.
+13. SEO E DESEMPENHO
+Configure:
+Título:
+“Açougue Taquari | Cortes especiais em Jardim Primavera”
+Meta description:
+“Conheça o Açougue Taquari em Jardim Primavera, Duque de Caxias. Cortes especiais, bebidas, temperos e acessórios para churrasco. Consulte produtos e delivery.”
+Idioma:
+pt-BR.
+Inclua metadados de compartilhamento quando houver imagem e endereço de publicação reais.
+Não invente domínio, URL canônica ou imagem de compartilhamento inexistente.
+Caso inclua dados estruturados, utilize somente informações verificáveis. Não inclua avaliações, telefone pendente ou ofertas fictícias.
+Otimize imagens, fontes e scripts. Evite bibliotecas e vídeos pesados sem benefício claro.
+Não adicione rastreamento, pop-up de cookies ou coleta de dados sem necessidade definida.
+14. CRITÉRIOS DE ENTREGA
+Antes de concluir:
+Abra o site no navegador, se o ambiente permitir.
+Inspecione desktop e mobile.
+Revise composição, espaçamento e quebras de linha.
+Teste todos os links e controles.
+Verifique carregamento de imagens, fontes e bibliotecas.
+Confira o console.
+Teste teclado e movimento reduzido.
+Confirme que não existem textos demonstrativos de outras empresas.
+Confirme que não existem preços, contatos ou promessas inventadas.
+Preserve o arquivo original do design system.
+Entregue os arquivos completos e uma nota curta com:
+O que foi implementado.
+Como visualizar o site.
+Dependências utilizadas.
+Verificações realmente realizadas.
+Pendências para publicação, especialmente confirmação do telefone, horários, catálogo e condições de delivery.
+Não publique o site automaticamente. Entregue a versão pronta para revisão.
+Capriche principalmente na direção de arte, na tipografia, na escolha das imagens, na continuidade visual entre as seções e nas microinterações. O resultado deve representar o Açougue Taquari com clareza comercial e acabamento coerente com o design system fornecido.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-09-17T20:45:47-03:00.
+
+The user's current state is as follows:
+Active Document: c:\Users\Marcos Lima\Desktop\taquari site\ref\design_system.html (LANGUAGE_HTML)
+Cursor is on line: 1
+Other open documents:
+- c:\Users\Marcos Lima\Desktop\taquari site\ref\design_system.html (LANGUAGE_HTML)
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from Gemini 3.7 Flash (High) to Gemini 3.1 Pro (High). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>

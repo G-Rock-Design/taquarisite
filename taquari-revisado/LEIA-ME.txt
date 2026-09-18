@@ -1,0 +1,18 @@
+TAQUARI — VERSÃO REVISADA
+
+Abra index.html no navegador. Mantenha assets, refinements.css, art-direction.css e site.js junto do HTML. Nenhuma instalação ou compilação é necessária. Google Fonts usa internet; o conteúdo e os links continuam disponíveis sem essas dependências. Os ícones são SVG locais.
+
+Alterações: estrutura das seções corrigida; navegação e menu móvel; fotos reais da fachada e interior; conteúdo comercial revisado; categorias de complementos; etapas de consulta e delivery; FAQ; localização; rodapé; animações de entrada por seção e suporte a movimento reduzido.
+
+O arquivo original na Área de Trabalho não foi modificado. Esta pasta contém a versão revisada completa. O site não foi publicado.
+
+ANTES DE PUBLICAR
+- Confirmar o contato oficial: as referências mostram (21) 99893-1657 e (21) 97263-1488. Os botões usam Instagram enquanto isso.
+- Confirmar horários, catálogo e condições de entrega.
+- As duas fotografias de cortes vieram do index original e estão identificadas como ilustrativas. Confirmar autorização de uso ou substituir por fotos próprias antes da publicação.
+- As fotos da fachada e do interior são as fornecidas pelo usuário.
+- Definir domínio e imagem de compartilhamento, caso desejado.
+
+VERIFICAÇÃO
+Testes automatizados de navegador em 360, 390, 768, 1024 e 1440 pixels; links internos, imagens, menu, Escape, FAQ, conteúdo sem JavaScript e movimento reduzido. Inspeção visual de capturas de desktop e celular. Links externos não envolvem envio de mensagens nem compra.
+

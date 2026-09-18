@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Açougue Taquari — Cortes Especiais · Jardim Primavera</title>
+    <meta name="description" content="Carnes nobres, bebidas, temperos e acessórios para o seu próximo churrasco. Conheça o Açougue Taquari em Jardim Primavera, Duque de Caxias, RJ."/>
+    
+    <!-- Open Graph / Meta -->
+    <meta property="og:title" content="Açougue Taquari — Cortes Especiais"/>
+    <meta property="og:description" content="Carnes nobres, bebidas, temperos e acessórios para o seu churrasco em Duque de Caxias."/>
+    <meta property="og:type" content="website"/>
+
+    <!-- Google Fonts: Conexão prévia e carregamento estrito dos pesos utilizados -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet"/>
+
+    <!-- Iconify SVG Runtime (Solar Icons) -->
+
+    <!-- GSAP 3.12.5 CDN -->
+
+    <style>
+        /* ============================================================
+           01. DESIGN TOKENS & VARIÁVEIS SEMÂNTICAS
+           Baseadas na identidade visual do Açougue Taquari
+           ============================================================ */
+        :root {
+            /* Superfícies & Cores de Fundo */
+            --color-bg: #F5F3EE;
+            --color-surface: #FFFFFF;
+            --color-surface-subtle: #F8F6F2;
+            --color-beige: #E5D8C5;
+
+            /* Tipografia & Contrastes */
+            --color-text: #141414;
+            --color-graphite: #2B2D30;
+            --color-muted: #5C5E62;
+
+            /* Identidade Taquari */
+            --color-accent: #F2C21A;        /* Amarelo Taquari */
+            --color-accent-hover: #DFB012;  /* Amarelo Taquari escurecido para hover */
+            --color-wood: #79513A;          /* Marrom madeira */
+            --color-meat: #8C2935;          /* Vermelho carne sutil */
+
+            /* Fontes */
+            --font-display: 'Bebas Neue', Impact, sans-serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            /* Sombras & Profundidade Refinadas */
+            --shadow-subtle: 0 4px 20px rgba(20, 20, 20, 0.04);
+            --shadow-medium: 0 16px 36px -8px rgba(20, 20, 20, 0.08);
+            --shadow-floating: 0 24px 50px -12px rgba(20, 20, 20, 0.12);
+            --shadow-accent: 0 12px 28px -4px rgba(242, 194, 26, 0.35);
+
+            /* Curvas de Transição Naturais (Design System) */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+            --transition-fast: 0.25s var(--ease-out-smooth);
+            --transition-normal: 0.4s var(--ease-out-expo);
+        }
+
+        /* ============================================================
+           02. RESET & BASE ESTILÍSTICA
+           ============================================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-sans);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: var(--color-bg);
+            background-image: 
+                radial-gradient(circle at 10% 15%, rgba(242, 194, 26, 0.04) 0%, transparent 45%),
+                radial-gradient(circle at 90% 85%, rgba(121, 81, 58, 0.03) 0%, transparent 50%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        /* Acessibilidade: foco visível para teclado */
+        a:focus-visible, button:focus-visible {
+            outline: 2px solid var(--color-text);
+            outline-offset: 4px;
+        }
+
+        /* ============================================================
+           03. CABEÇALHO COMPACTO INTEGRADO
+           ============================================================ */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 90;
+            padding: 1.25rem 2rem;
+            transition: background-color var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+            border-bottom: 1px solid rgba(229, 216, 197, 0.5);
+            background: rgba(245, 243, 238, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.85rem;
+            text-decoration: none;
+            transition: transform var(--transition-fast);
+        }
+
+        .brand-link:hover {
+            transform: translateY(-1px);
+        }
+
+        .brand-logo-wrap {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--color-text);
+            padding: 2px;
+            box-shadow: 0 4px 10px rgba(20, 20, 20, 0.12);
+            border: 1px solid rgba(242, 194, 26, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .brand-logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .brand-text-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-title {
+            font-family: var(--font-display);
+            font-size: 1.65rem;
+            letter-spacing: 0.06em;
+            line-height: 1;
+            color: var(--color-text);
+        }
+
+        .brand-subtitle {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--color-wood);
+            margin-top: 2px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .header-instagram-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.6rem 1.15rem;
+            border-radius: 9999px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: var(--color-graphite);
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid var(--color-beige);
+            transition: all var(--transition-fast);
+            min-height: 44px;
+        }
+
+        .header-instagram-btn iconify-icon {
+            font-size: 1.25rem;
+            color: var(--color-text);
+            transition: transform var(--transition-fast), color var(--transition-fast);
+        }
+
+        .header-instagram-btn:hover {
+            background: var(--color-surface);
+            color: var(--color-text);
+            border-color: var(--color-graphite);
+            box-shadow: var(--shadow-subtle);
+            transform: translateY(-1px);
+        }
+
+        .header-instagram-btn:hover iconify-icon {
+            transform: scale(1.15);
+            color: #E1306C;
+        }
+
+        /* ============================================================
+           04. ESTRUTURA PRINCIPAL & HERO GRID
+           ============================================================ */
+        .hero-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 8.5rem 2rem 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-bg-mobile {
+            display: none; /* Oculto no desktop */
+        }
+
+        @media (max-width: 900px) {
+            .hero-bg-desktop {
+                display: none !important;
+            }
+            .hero-bg-mobile {
+                display: block !important;
+            }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2); /* Escurecimento muito leve apenas para não sumir o texto totalmente, mas sem desfoque e sem esconder o vídeo */
+            z-index: 1;
+        }
+
+        .hero-container {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            align-items: center;
+            gap: 4.5rem;
+        }
+
+        /* Coluna Esquerda: Conteúdo Editorial & CTA */
+        .hero-text-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            max-width: 680px;
+            z-index: 2;
+        }
+
+        /* Tag / Pre-título */
+        .hero-pretitle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .hero-pretitle-line {
+            width: 32px;
+            height: 2px;
+            background: var(--color-surface);
+            border-radius: 1px;
+        }
+
+        .hero-pretitle-text {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+        }
+
+        /* Título Principal Semântico */
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(3.8rem, 7.2vw, 7.2rem);
+            line-height: 0.94;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            user-select: none;
+        }
+
+        .hero-title-line {
+            display: block;
+        }
+
+        /* Efeito Contornado Claro / Vazado de Alto Contraste */
+        .hero-title-stroke {
+            -webkit-text-stroke: 2px var(--color-accent);
+            color: rgba(255, 255, 255, 0.95); /* Preenchimento branco sólido para contraste total com o vídeo */
+            letter-spacing: 0.03em;
+            text-shadow: 0 4px 16px rgba(0,0,0,0.9);
+            transition: color var(--transition-normal), -webkit-text-stroke-color var(--transition-normal), text-shadow var(--transition-normal);
+        }
+
+        .hero-title-stroke:hover {
+            color: #FFFFFF;
+            -webkit-text-stroke-color: var(--color-surface);
+            text-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Efeito Preenchido */
+        .hero-title-solid {
+            color: var(--color-accent);
+            letter-spacing: 0.03em;
+            text-shadow: 0 4px 16px rgba(0,0,0,0.9);
+        }
+
+        /* Descrição */
+        .hero-description {
+            font-size: clamp(1rem, 1.2vw, 1.125rem);
+            line-height: 1.75;
+            color: #FFFFFF;
+            font-weight: 500;
+            max-width: 540px;
+            margin-bottom: 2.8rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+        }
+
+        /* Ações e Botões Cápsula */
+        .hero-actions-group {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            margin-bottom: 3.2rem;
+            width: 100%;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1.05rem 2.2rem;
+            border-radius: 9999px; /* Formato cápsula obrigatório */
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            min-height: 48px;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        /* Botão Primário: Amarelo Taquari com Texto Escuro */
+        .btn-primary {
+            background-color: var(--color-accent);
+            color: var(--color-text); /* Texto escuro obrigatório sobre amarelo */
+            border: 1px solid var(--color-accent);
+            box-shadow: var(--shadow-accent);
+        }
+
+        .btn-primary .btn-arrow-icon {
+            font-size: 1.15rem;
+            transition: transform var(--transition-fast);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-accent-hover);
+            border-color: var(--color-accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 16px 32px -4px rgba(242, 194, 26, 0.45);
+        }
+
+        .btn-primary:hover .btn-arrow-icon {
+            transform: translateX(4px);
+        }
+
+        /* Botão Secundário: Fundo Sólido Branco para Maior Contraste no Vídeo */
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.95);
+            color: var(--color-text);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+
+        .btn-secondary .btn-pin-icon {
+            font-size: 1.15rem;
+            color: var(--color-accent); /* Pino amarelo para combinar */
+            transition: transform var(--transition-fast);
+        }
+
+        .btn-secondary:hover {
+            background-color: #FFFFFF;
+            color: var(--color-text);
+            border-color: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary:hover .btn-pin-icon {
+            transform: translateY(-2px);
+        }
+
+        /* Informação Discreta de Localização */
+        .hero-location-bar {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .location-icon-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-accent);
+            font-size: 1.15rem;
+            flex-shrink: 0;
+        }
+
+        .location-text {
+            font-size: 0.85rem;
+            font-weight: 500;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+        }
+
+        /* ============================================================
+           05. COMPOSIÇÃO VISUAL ASSIMÉTRICA (DIREITA)
+           Fotografias em camadas, bordas discretas, sombras suaves
+           ============================================================ */
+        .hero-visual-col {
+            position: relative;
+            width: 100%;
+            height: 560px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .visual-composition-wrap {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-width: 540px;
+        }
+
+        /* Fotografia Dominante Principal (Corte Nobre Picanha) */
+        .visual-card-primary {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 82%;
+            height: 82%;
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: var(--color-surface);
+            border: 1px solid rgba(229, 216, 197, 0.7);
+            box-shadow: var(--shadow-medium);
+            z-index: 1;
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+        }
+
+        .visual-card-primary img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s var(--ease-out-expo);
+        }
+
+        .visual-card-primary:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-floating);
+        }
+
+        .visual-card-primary:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Fotografia Secundária Sobreposta (Bife Ancho Premium) */
+        .visual-card-secondary {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 56%;
+            height: 54%;
+            border-radius: 14px;
+            overflow: hidden;
+            background-color: var(--color-surface);
+            border: 6px solid var(--color-bg); /* Moldura clara de respiração */
+            box-shadow: var(--shadow-floating);
+            z-index: 2;
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+        }
+
+        .visual-card-secondary img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s var(--ease-out-expo);
+        }
+
+        .visual-card-secondary:hover {
+            transform: translateY(-6px) rotate(0.5deg);
+            box-shadow: 0 30px 60px -15px rgba(20, 20, 20, 0.16);
+        }
+
+        .visual-card-secondary:hover img {
+            transform: scale(1.04);
+        }
+
+        /* Detalhes Textuais Elegantes (Harmonia Visual) */
+        .visual-badge-pill {
+            position: absolute;
+            top: 1.5rem;
+            left: -1rem;
+            z-index: 3;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--color-beige);
+            padding: 0.65rem 1.25rem;
+            border-radius: 9999px;
+            box-shadow: var(--shadow-subtle);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            transition: transform var(--transition-fast);
+        }
+
+        .visual-badge-pill:hover {
+            transform: translateY(-2px);
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--color-accent);
+            box-shadow: 0 0 8px rgba(242, 194, 26, 0.6);
+        }
+
+        .badge-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--color-graphite);
+        }
+
+        /* Cartão de Tags Discreto na Base */
+        .visual-features-strip {
+            position: absolute;
+            bottom: -1.25rem;
+            right: 1.5rem;
+            z-index: 3;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--color-beige);
+            padding: 0.55rem 1.1rem;
+            border-radius: 9999px;
+            box-shadow: var(--shadow-subtle);
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--color-graphite);
+            letter-spacing: 0.05em;
+        }
+
+        .features-separator {
+            color: var(--color-beige);
+            font-size: 0.8rem;
+        }
+
+        /* ============================================================
+           06. RESPONSIVIDADE PRECISA & AJUSTES DE TELAS
+           360px, 390px, 768px, 1024px, 1440px
+           ============================================================ */
+        @media (max-width: 1140px) {
+            .hero-container {
+                gap: 3rem;
+            }
+            .hero-visual-col {
+                height: 480px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-section {
+                padding-top: 7.5rem;
+                padding-bottom: 4rem;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .hero-text-col {
+                max-width: 100%;
+            }
+
+            .hero-visual-col {
+                height: 460px;
+                max-width: 520px;
+                margin: 0 auto;
+            }
+
+            .visual-badge-pill {
+                left: 0.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .site-header {
+                padding: 1rem 1.25rem;
+            }
+
+            .brand-title {
+                font-size: 1.45rem;
+            }
+
+            .brand-logo-wrap {
+                width: 36px;
+                height: 36px;
+            }
+
+            .header-instagram-btn span {
+                display: none; /* Mantém apenas o ícone no mobile */
+            }
+
+            .header-instagram-btn {
+                padding: 0.55rem;
+                width: 44px;
+                height: 44px;
+                justify-content: center;
+            }
+
+            .hero-section {
+                padding: 6.8rem 1.25rem 3.5rem 1.25rem;
+            }
+
+            .hero-pretitle {
+                margin-bottom: 1.2rem;
+            }
+
+            .hero-title {
+                font-size: clamp(2.85rem, 12vw, 4rem);
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+                line-height: 1.65;
+                margin-bottom: 2.2rem;
+            }
+
+            .hero-actions-group {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+                min-height: 50px; /* Área de toque confortável >= 44px */
+            }
+
+            .hero-visual-col {
+                height: 360px;
+                width: 100%;
+            }
+
+            .visual-card-primary {
+                width: 85%;
+                height: 85%;
+            }
+
+            .visual-card-secondary {
+                width: 62%;
+                height: 58%;
+                bottom: 10px;
+            }
+
+            .visual-features-strip {
+                display: none; /* Remove no mobile pequeno para evitar ruído */
+            }
+
+            .visual-badge-pill {
+                top: 0.75rem;
+                left: -0.25rem;
+                padding: 0.5rem 0.9rem;
+            }
+
+            .hero-location-bar {
+                padding-top: 1.25rem;
+            }
+
+            .location-text {
+                font-size: 0.78rem;
+            }
+        }
+
+        /* ============================================================
+           07. ESTILOS DAS DOBRAS (2 A 11)
+           ============================================================ */
+        .section-padding {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .section-dark {
+            background-color: var(--color-graphite);
+            color: var(--color-surface);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 4rem auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1;
+            letter-spacing: 0.02em;
+            color: var(--color-text);
+        }
+
+        .section-dark .section-title {
+            color: var(--color-surface);
+        }
+
+        .section-desc {
+            font-size: 1.125rem;
+            line-height: 1.6;
+            color: var(--color-muted);
+        }
+
+        .section-dark .section-desc {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Mix / Categorias */
+        .mix-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+            border-top: 1px solid var(--color-beige);
+            padding-top: 3rem;
+        }
+
+        .mix-item {
+            flex: 1;
+            min-width: 220px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--color-surface);
+            border: 1px solid rgba(229, 216, 197, 0.5);
+            border-radius: 12px;
+            box-shadow: var(--shadow-subtle);
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .mix-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .mix-icon {
+            font-size: 2rem;
+            color: var(--color-accent);
+            background: rgba(242, 194, 26, 0.1);
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .mix-text {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--color-graphite);
+        }
+
+        /* Grade de Produtos (Cortes, Complementos) */
+        .product-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .product-card {
+            background: var(--color-surface);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(229, 216, 197, 0.5);
+            box-shadow: var(--shadow-subtle);
+            display: flex;
+            flex-direction: column;
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .product-image-wrap {
+            position: relative;
+            width: 100%;
+            padding-top: 100%; /* 1:1 Aspect Ratio */
+            overflow: hidden;
+            background: var(--color-surface-subtle);
+        }
+
+        .product-image-wrap img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s var(--ease-out-expo);
+        }
+
+        .product-card:hover .product-image-wrap img {
+            transform: scale(1.05);
+        }
+
+        .product-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .product-name {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            letter-spacing: 0.03em;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+        }
+
+        .product-desc {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--color-muted);
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .product-action {
+            align-self: flex-start;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-wood);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 2px;
+            transition: border-color var(--transition-fast), color var(--transition-fast);
+        }
+
+        .product-action:hover {
+            color: var(--color-text);
+            border-color: var(--color-text);
+        }
+        
+        .disclaimer-text {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--color-muted);
+            margin-top: 3rem;
+            font-style: italic;
+        }
+
+        /* Editorial Split (Destaque e Loja) */
+        .editorial-split {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .editorial-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+
+        .editorial-image {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .editorial-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            aspect-ratio: 4/5;
+        }
+
+        /* FAQ Accordion */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .faq-details {
+            background: var(--color-surface);
+            border: 1px solid rgba(229, 216, 197, 0.5);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .faq-summary {
+            padding: 1.5rem 2rem;
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--color-text);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+            transition: background-color var(--transition-fast);
+        }
+
+        .faq-summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-summary:hover {
+            background-color: var(--color-surface-subtle);
+        }
+
+        .faq-icon {
+            font-size: 1.2rem;
+            color: var(--color-wood);
+            transition: transform var(--transition-fast);
+        }
+
+        .faq-details[open] .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-content {
+            padding: 0 2rem 1.5rem 2rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--color-muted);
+        }
+
+        /* Localização Grid */
+        .location-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .info-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .info-item-icon {
+            font-size: 1.5rem;
+            color: var(--color-accent);
+            margin-top: 2px;
+        }
+
+        .info-item-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--color-graphite);
+            margin-bottom: 0.25rem;
+        }
+
+        .info-item-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--color-muted);
+        }
+
+        /* Rodapé */
+        .site-footer {
+            background: var(--color-graphite);
+            color: var(--color-surface);
+            padding: 5rem 2rem 2rem 2rem;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand .brand-title {
+            color: var(--color-surface);
+        }
+        
+        .footer-brand .brand-subtitle {
+            color: var(--color-accent);
+        }
+
+        .footer-desc {
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 320px;
+        }
+
+        .footer-nav-title {
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-surface);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-nav-link {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            transition: color var(--transition-fast);
+        }
+
+        .footer-nav-link:hover {
+            color: var(--color-accent);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 2rem auto 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Responsividade Dobras */
+        @media (max-width: 992px) {
+            .editorial-split, .location-grid, .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .mix-item {
+                min-width: calc(50% - 1rem);
+            }
+        }
+        @media (max-width: 640px) {
+            .section-padding { padding: 4.5rem 1.25rem; }
+            .mix-item { min-width: 100%; }
+            .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+            .editorial-image img { aspect-ratio: 1/1; }
+        }
+
+        /* ============================================================
+           07. ACESSIBILIDADE: PREFERS-REDUCED-MOTION
+           ============================================================ */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .gsap-reveal,
+            .visual-composition-wrap,
+            .site-header {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
+        /* Botão Flutuante do WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .whatsapp-float:hover {
+            background-color: #20b858;
+            transform: translateY(-4px);
+            box-shadow: 0px 6px 16px rgba(0,0,0,0.4);
+            color: #FFF;
+        }
+
+        @media (max-width: 640px) {
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+            .whatsapp-float svg {
+                width: 26px;
+                height: 26px;
+            }
+        }
+    </style><link rel="stylesheet" href="refinements.css"/>
+<link rel="stylesheet" href="art-direction.css"/>
+</head>
+<body>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <!-- ============================================================
+         CABEÇALHO COMPACTO INTEGRADO
+         Marca à esquerda e link direto para o Instagram à direita
+         ============================================================ -->
+    <header class="site-header" id="siteHeader">
+        <div class="header-container">
+            <a href="#hero" class="brand-link" aria-label="Açougue Taquari — início">
+                <div class="brand-logo-wrap">
+                    <img src="assets/logo.jpg" alt="Logotipo Açougue Taquari" class="brand-logo-img" width="446" height="446"/>
+                </div>
+                <div class="brand-text-block">
+                    <span class="brand-title">TAQUARI</span>
+                    <span class="brand-subtitle">AÇOUGUE DE CORTES ESPECIAIS</span>
+                </div>
+            </a>
+
+            <nav class="desktop-nav" aria-label="Navegação principal"><a href="#cortes">Cortes</a><a href="#complementos">Churrasco</a><a href="#loja">A loja</a><a href="#delivery">Delivery</a><a href="#localizacao">Localização</a></nav><div class="header-actions"><button class="menu-toggle" aria-expanded="false" aria-controls="mobile-nav">Menu <span aria-hidden="true">☰</span></button>
+                <a href="https://www.instagram.com/acouguetaquari/" target="_blank" rel="noopener noreferrer" class="header-instagram-btn" aria-label="Acompanhe o Açougue Taquari no Instagram">
+                    <svg class="local-icon " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg>
+                    <span>@acouguetaquari</span>
+                </a>
+            </div>
+        </div>
+    <nav id="mobile-nav" class="mobile-nav" aria-label="Navegação móvel" hidden><a href="#cortes">Cortes especiais</a><a href="#complementos">Para o churrasco</a><a href="#loja">A loja</a><a href="#delivery">Delivery</a><a href="#localizacao">Localização</a></nav></header>
+
+    <!-- ============================================================
+         HERO SECTION: AÇOUGUE TAQUARI
+         Apenas a primeira dobra, com foco em acabamento visual e conversão
+         ============================================================ -->
+    <main id="conteudo"><section class="hero-section" id="hero" aria-label="Apresentação">
+        <!-- Vídeo de Fundo Desktop -->
+        <video class="hero-bg-video hero-bg-desktop" autoplay loop muted playsinline>
+            <source src="assets/bg-hero.mp4" type="video/mp4">
+        </video>
+        <!-- Vídeo de Fundo Mobile -->
+        <video class="hero-bg-video hero-bg-mobile" autoplay loop muted playsinline>
+            <source src="assets/bg-hero-mobile.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-container">
+
+            <!-- Coluna de Apresentação e Conteúdo -->
+            <div class="hero-text-col">
+                <!-- Tag / Pre-título -->
+                <div class="hero-pretitle gsap-reveal">
+                    <span class="hero-pretitle-line" aria-hidden="true"></span>
+                    <span class="hero-pretitle-text">CORTES ESPECIAIS · JARDIM PRIMAVERA</span>
+                </div>
+
+                <!-- Título Principal com Letras Contornadas e Preenchidas -->
+                <h1 class="hero-title gsap-reveal">
+                    <span class="hero-title-line hero-title-stroke">SEU CHURRASCO</span>
+                    <span class="hero-title-line hero-title-solid">COMEÇA AQUI.</span>
+                </h1>
+
+                <!-- Descrição Editorial -->
+                <p class="hero-description gsap-reveal">
+                    Carnes nobres, bebidas, temperos e acessórios para o seu próximo churrasco. Conheça o Taquari em Jardim Primavera, Duque de Caxias.
+                </p>
+
+                <!-- Botões de Ação em Formato Cápsula -->
+                <div class="hero-actions-group gsap-reveal">
+                    <!-- Botão Primário de Conversão -->
+                    <a href="https://www.instagram.com/acouguetaquari/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="btnConsultarCortes">
+                        <span>Consultar cortes</span>
+                        <svg class="local-icon btn-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+                    </a>
+
+                    <!-- Botão Secundário de Localização -->
+                    <a href="https://www.google.com/maps/search/?api=1&query=A%C3%A7ougue+Taquari%2C+Avenida+Primavera%2C+256%2C+Jardim+Primavera%2C+Duque+de+Caxias%2C+RJ%2C+25215-255" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" id="btnComoChegar">
+                        <svg class="local-icon btn-pin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                        <span>Como chegar</span>
+                    </a>
+                </div>
+
+                <!-- Informação Discreta de Endereço -->
+                <div class="hero-location-bar gsap-reveal">
+                    <div class="location-icon-box" aria-hidden="true">
+                        <svg class="local-icon " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                    </div>
+                    <div class="location-text">
+                        Av. Primavera, 256 · Jardim Primavera · Duque de Caxias, RJ
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna de Composição Fotográfica Assimétrica -->
+            <div class="hero-visual-col">
+                <div class="visual-composition-wrap gsap-visual-reveal">
+                    
+                    <!-- Detalhe Superior: Selo Nobre -->
+                    <div class="visual-badge-pill" aria-hidden="true">
+                        <span class="badge-dot"></span>
+                        <span class="badge-label">Carnes Nobres</span>
+                    </div>
+
+                    <!-- Fotografia Dominante Principal (Picanha de Alta Qualidade) -->
+                    <div class="visual-card-primary">
+                        <img src="assets/corte-principal.webp" 
+                             alt="Corte nobre selecionado sobre tábua rústica de madeira" 
+                             width="832" 
+                             height="832" 
+                             fetchpriority="high"/>
+                    </div>
+
+                    <!-- Fotografia Secundária Sobreposta (Bife Ancho Premium) -->
+                    <div class="visual-card-secondary">
+                        <img src="assets/corte-detalhe.webp" 
+                             alt="Bife ancho marmorizado com sal marinho grosso" 
+                             width="600" 
+                             height="600" 
+                             loading="eager"/>
+                    </div>
+
+                    <!-- Faixa de Detalhes Textuais na Base -->
+                    <span class="hero-photo-note">Fotografias de cortes ilustrativas</span><div class="visual-features-strip" aria-hidden="true">
+                        <span>Temperos e bebidas</span>
+                        <span class="features-separator">·</span>
+                        <span>Acessórios para churrasco</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        </section>
+<!-- DOBRA 2: VISÃO GERAL DO MIX -->
+        <section class="section-padding" id="mix">
+            <div class="mix-container gsap-reveal">
+                <div class="mix-item">
+                    <div class="mix-icon"><svg class="local-icon " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="16" height="15" rx="2"/><path d="M8 6V3h8v3M4 11h16M12 11v10"/></svg></div>
+                    <div class="mix-text">Cortes especiais</div>
+                </div>
+                <div class="mix-item">
+                    <div class="mix-icon"><svg class="local-icon " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="16" height="15" rx="2"/><path d="M8 6V3h8v3M4 11h16M12 11v10"/></svg></div>
+                    <div class="mix-text">Bebidas e temperos</div>
+                </div>
+                <div class="mix-item">
+                    <div class="mix-icon"><svg class="local-icon " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2c2 7-3 7-1 11 2-1 3-3 3-5 4 4 6 8 3 12-3 4-10 2-11-1-3-5 0-9 3-12-1 4 1 5 2 5"/></svg></div>
+                    <div class="mix-text">Carvão e defumação</div>
+                </div>
+                <div class="mix-item">
+                    <div class="mix-icon"><svg class="local-icon " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="16" height="15" rx="2"/><path d="M8 6V3h8v3M4 11h16M12 11v10"/></svg></div>
+                    <div class="mix-text">Acessórios para churrasco</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DOBRA 3: CORTES EM DESTAQUE -->
+        <section class="section-padding" id="cortes">
+            <div class="section-header gsap-reveal">
+                <div class="section-kicker">01 / A escolha do corte</div><h2 class="section-title">O corte que combina com o seu churrasco.</h2>
+                <p class="section-desc">Explore alguns dos cortes apresentados pelo Taquari e consulte as opções disponíveis.</p>
+            </div>
+            
+            <div class="product-grid cuts-grid"><article class="product-card gsap-reveal"><div class="product-image-wrap"><img src="assets/corte-principal.webp" alt="Imagem ilustrativa de picanhas" width="832" height="832" loading="lazy"/><span class="photo-caption">Imagem ilustrativa</span></div><div class="product-content"><h3 class="product-name">Picanhas</h3><p class="product-desc">Consulte as opções de picanha e os valores disponíveis.</p><a class="product-action" href="https://www.instagram.com/acouguetaquari/" target="_blank" rel="noopener noreferrer">Consultar no Instagram <span aria-hidden="true">↗</span></a></div></article><article class="product-card gsap-reveal"><div class="product-image-wrap"><img src="assets/corte-detalhe.webp" alt="Imagem ilustrativa de cortes especiais" width="832" height="832" loading="lazy"/><span class="photo-caption">Imagem ilustrativa</span></div><div class="product-content"><h3 class="product-name">Cortes especiais</h3><p class="product-desc">Converse com a loja sobre os cortes para o seu churrasco.</p><a class="product-action" href="https://www.instagram.com/acouguetaquari/" target="_blank" rel="noopener noreferrer">Consultar no Instagram <span aria-hidden="true">↗</span></a></div></article></div><p class="disclaimer-text gsap-reveal">Consulte a disponibilidade dos cortes pelo nosso canal de atendimento.</p>
+        </section>
+
+        <!-- DOBRA 4: COMPLEMENTOS PARA O CHURRASCO -->
+        <section class="section-padding" style="background-color: var(--color-surface-subtle);" id="complementos">
+            <div class="section-header gsap-reveal">
+                <div class="section-kicker">02 / O churrasco por completo</div><h2 class="section-title">Além da carne, os complementos do churrasco.</h2>
+            </div>
+
+            <div class="accessories-layout"><figure class="shop-photo"><img src="assets/foto3.jpg" alt="Grelhas, utensílios e bebidas na entrada do Taquari" width="750" height="1002" loading="lazy" style="object-fit: cover;"/><figcaption>Para escolher de perto. Para levar ao churrasco.</figcaption></figure><div class="category-list"><article><span class="eyebrow">01</span><h3>Bebidas & temperos</h3><p>Complementos para acompanhar a carne e o preparo.</p></article><article><span class="eyebrow">02</span><h3>Facas, grelhas & churrasqueiras</h3><p>Utensílios e equipamentos apresentados na loja.</p></article><article><span class="eyebrow">03</span><h3>Carvão & defumação</h3><p>Consulte carvão, briquetes e itens de defumação.</p></article><a class="btn btn-secondary" href="https://www.instagram.com/acouguetaquari/" target="_blank" rel="noopener noreferrer">Consultar produtos ↗</a></div></div></section>
+<!-- DOBRA 5: DESTAQUE EDITORIAL -->
+        <section class="section-padding section-dark">
+            <div class="editorial-split">
+                <div class="editorial-content gsap-reveal">
+                    <h2 class="section-title" style="text-align: left;">Da escolha do corte aos detalhes do preparo.</h2>
+                    <p class="section-desc">Conheça as opções de carnes, temperos, bebidas e acessórios do Taquari para planejar seu próximo churrasco.</p>
+                    <a href="https://www.instagram.com/acouguetaquari/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top: 1rem;">
+                        <svg class="local-icon btn-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11a9 9 0 0 1-9 9H4l-2 2V11a9 9 0 0 1 19 0Z"/><path d="M7 11h10M7 15h6"/></svg>
+                        <span>Conversar sobre meu churrasco</span>
+                    </a>
+                </div>
+                <div class="editorial-image gsap-visual-reveal">
+                    <img src="assets/interior.jpeg" alt="Produtos e equipamentos expostos no Taquari" loading="lazy" width="800" height="1000"/>
+                </div>
+            </div>
+        </section>
+
+        <!-- DOBRA 6: A LOJA -->
+        <section class="section-padding" id="loja">
+            <div class="editorial-split" style="direction: rtl;">
+                <div class="editorial-content gsap-reveal" style="direction: ltr;">
+                    <div class="section-kicker">03 / De portas abertas</div><h2 class="section-title" style="text-align: left;">Conheça o Taquari.</h2>
+                    <p class="section-desc">Em Jardim Primavera, Duque de Caxias, o Taquari reúne cortes especiais e produtos para churrasco em uma loja com bebidas, temperos e acessórios.</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=A%C3%A7ougue+Taquari%2C+Avenida+Primavera%2C+256%2C+Jardim+Primavera%2C+Duque+de+Caxias%2C+RJ%2C+25215-255" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="margin-top: 1rem;">
+                        <svg class="local-icon btn-pin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                        <span>Visitar a loja</span>
+                    </a>
+                </div>
+                <div class="editorial-image gsap-visual-reveal" style="direction: ltr;">
+                    <img src="assets/fachada.jpeg" alt="Fachada real do Açougue Taquari em Jardim Primavera" loading="lazy" width="800" height="1000"/>
+                </div>
+            </div>
+        </section>
+
+        <!-- DOBRA 7: CONSULTAS E DELIVERY -->
+        <section class="section-padding" style="background-color: var(--color-surface-subtle);" id="delivery">
+            <div class="section-header gsap-reveal">
+                <div class="section-kicker">04 / Do seu jeito</div><h2 class="section-title">Consulte os produtos e as opções de entrega.</h2>
+                <p class="section-desc" style="max-width: 500px; margin: 0 auto;">Seu próximo churrasco começa com uma conversa.</p>
+                <ol class="delivery-steps"><li><span>01</span><h3>Escolha</h3><p>Informe os cortes e produtos que procura.</p></li><li><span>02</span><h3>Consulte</h3><p>Confira disponibilidade, valores e entrega.</p></li><li><span>03</span><h3>Combine</h3><p>Finalize os detalhes diretamente com a loja.</p></li></ol><div style="margin-top: 2rem;"><a href="https://www.instagram.com/acouguetaquari/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                        <span>Consultar entrega no Instagram</span>
+                        <svg class="local-icon btn-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="16" height="15" rx="2"/><path d="M8 6V3h8v3M4 11h16M12 11v10"/></svg>
+                    </a>
+                    <p class="disclaimer-text" style="margin-top: 1.5rem;">Consulte a área atendida, a taxa e o prazo para o seu endereço.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- DOBRA 8: INSTAGRAM -->
+        <section class="section-padding instagram-section" id="instagram">
+            <div class="section-header gsap-reveal" style="margin-bottom: 2rem;">
+                <div class="section-kicker">Por dentro do Taquari</div><h2 class="section-title">Acompanhe o Taquari.</h2>
+                <p class="section-desc">Veja publicações de cortes, produtos e novidades no Instagram.</p><div class="social-wordmark" aria-hidden="true">@acouguetaquari</div>
+                <div style="margin-top: 1.5rem;">
+                    <a href="https://www.instagram.com/acouguetaquari/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                        <svg class="local-icon btn-pin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg>
+                        <span>Ver @acouguetaquari</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- DOBRA 9: PERGUNTAS FREQUENTES -->
+        <section class="section-padding" id="faq">
+            <div class="section-header gsap-reveal">
+                <div class="section-kicker">Antes de acender a brasa</div><h2 class="section-title">Dúvidas comuns.</h2>
+            </div>
+            
+            <div class="faq-container gsap-reveal">
+                <details class="faq-details">
+                    <summary class="faq-summary">
+                        Onde fica o Taquari?
+                        <svg class="local-icon faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                    </summary>
+                    <div class="faq-content">Avenida Primavera, 256, Jardim Primavera, Duque de Caxias — RJ.</div>
+                </details>
+
+                <details class="faq-details">
+                    <summary class="faq-summary">
+                        Quais são os horários?
+                        <svg class="local-icon faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                    </summary>
+                    <div class="faq-content">Terça a sexta-feira, das 10h às 18h30. Sábado, das 9h às 19h. Domingo, das 9h às 14h. Segunda-feira: fechado. Consulte o atendimento em feriados.</div>
+                </details>
+
+                <details class="faq-details">
+                    <summary class="faq-summary">
+                        O Taquari oferece delivery?
+                        <svg class="local-icon faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                    </summary>
+                    <div class="faq-content">O serviço é anunciado em nosso perfil. Consulte com a loja a disponibilidade para seu endereço, taxas e prazos pelo Instagram.</div>
+                </details>
+
+                <details class="faq-details">
+                    <summary class="faq-summary">
+                        Como consultar cortes e preços?
+                        <svg class="local-icon faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                    </summary>
+                    <div class="faq-content">Entre em contato pelo nosso canal disponível no site para consultar as opções, estoques e os valores atualizados.</div>
+                </details>
+
+                <details class="faq-details">
+                    <summary class="faq-summary">
+                        Além das carnes, o que encontro na loja?
+                        <svg class="local-icon faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                    </summary>
+                    <div class="faq-content">Bebidas, temperos e itens para churrasco, como carvão, grelhas, facas e acessórios, sujeitos à disponibilidade.</div>
+                </details>
+            </div>
+        </section>
+
+        <!-- DOBRA 10: LOCALIZAÇÃO E HORÁRIOS -->
+        <section class="section-padding" style="background-color: var(--color-surface-subtle);" id="localizacao">
+            <div class="location-grid">
+                <div class="editorial-image gsap-visual-reveal" style="border-radius: 8px; overflow: hidden; height: 100%;">
+                    <!-- Mapa interativo do Google Maps -->
+                    <iframe src="https://maps.google.com/maps?q=Avenida%20Primavera,%20256,%20Jardim%20Primavera,%20Duque%20de%20Caxias%20-%20RJ&t=&z=16&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0; min-height: 400px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="location-content gsap-reveal">
+                    <div class="section-kicker">Seu próximo destino</div><h2 class="section-title" style="text-align: left; margin-bottom: 2rem;">Visite o Taquari em Jardim Primavera.</h2>
+                    
+                    <ul class="info-list">
+                        <li class="info-item">
+                            <svg class="local-icon info-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                            <div>
+                                <div class="info-item-title">Endereço</div>
+                                <div class="info-item-text">Avenida Primavera, 256<br/>Jardim Primavera<br/>Duque de Caxias — RJ, 25215-255</div>
+                            </div>
+                        </li>
+                        <li class="info-item">
+                            <svg class="local-icon info-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>
+                            <div>
+                                <div class="info-item-title">Horário de Funcionamento</div>
+                                <div class="info-item-text">Terça a sexta: 10h às 18h30<br/>Sábado: 9h às 19h<br/>Domingo: 9h às 14h<br/>Segunda: Fechado</div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <a href="https://www.google.com/maps/search/?api=1&query=A%C3%A7ougue+Taquari%2C+Avenida+Primavera%2C+256%2C+Jardim+Primavera%2C+Duque+de+Caxias%2C+RJ%2C+25215-255" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                        <svg class="local-icon btn-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                        <span>Traçar rota</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- DOBRA 11: RODAPÉ -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <span class="brand-title" style="font-size: 1.8rem; letter-spacing: 0.05em; display:block;">TAQUARI</span>
+                <span class="brand-subtitle" style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;">AÇOUGUE DE CORTES ESPECIAIS</span>
+                <p class="footer-desc">Carnes nobres, bebidas, temperos e acessórios para o seu churrasco em Jardim Primavera, Duque de Caxias.</p>
+            </div>
+            <div>
+                <h2 class="footer-nav-title">Navegação</h2>
+                <ul class="footer-nav-list">
+                    <li><a href="#mix" class="footer-nav-link">Cortes e Produtos</a></li>
+                    <li><a href="#loja" class="footer-nav-link">A Loja</a></li>
+                    <li><a href="#delivery" class="footer-nav-link">Delivery</a></li>
+                    <li><a href="#faq" class="footer-nav-link">Dúvidas Frequentes</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="footer-nav-title">Contato & Redes</h2>
+                <ul class="footer-nav-list">
+                    <li><a href="https://www.instagram.com/acouguetaquari/" target="_blank" rel="noopener noreferrer" class="footer-nav-link">Instagram @acouguetaquari</a></li>
+                    <li><a href="#localizacao" class="footer-nav-link">Como Chegar</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>&copy; <span id="year">2026</span> Açougue Taquari. Todos os direitos reservados.</div>
+            <div>Jardim Primavera · Duque de Caxias, RJ</div>
+        </div>
+    </footer>
+
+    <!-- Botão WhatsApp Flutuante -->
+    <a href="https://wa.me/5521998931657" target="_blank" class="whatsapp-float" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5.8 5.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </a>
+
+    <!-- ============================================================
+         08. COREOGRAFIA DE ANIMAÇÃO COM GSAP
+         Curta, fluida (entre 0.8s e 1.3s) e não bloqueante
+         ============================================================ -->
+<script src="site.js" defer></script>
+</body></html>

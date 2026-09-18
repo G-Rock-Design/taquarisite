@@ -1,0 +1,282 @@
+        <!-- DOBRA 2: VISÃO GERAL DO MIX -->
+        <section class="section-padding" id="mix">
+            <div class="mix-container gsap-reveal">
+                <div class="mix-item">
+                    <div class="mix-icon"><iconify-icon icon="solar:meat-bone-bold"></iconify-icon></div>
+                    <div class="mix-text">Cortes especiais</div>
+                </div>
+                <div class="mix-item">
+                    <div class="mix-icon"><iconify-icon icon="solar:bottle-bold"></iconify-icon></div>
+                    <div class="mix-text">Bebidas e temperos</div>
+                </div>
+                <div class="mix-item">
+                    <div class="mix-icon"><iconify-icon icon="solar:fire-bold"></iconify-icon></div>
+                    <div class="mix-text">Carvão e defumação</div>
+                </div>
+                <div class="mix-item">
+                    <div class="mix-icon"><iconify-icon icon="solar:chef-hat-bold"></iconify-icon></div>
+                    <div class="mix-text">Acessórios para churrasco</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DOBRA 3: CORTES EM DESTAQUE -->
+        <section class="section-padding" id="cortes">
+            <div class="section-header gsap-reveal">
+                <h2 class="section-title">O corte que combina com o seu churrasco.</h2>
+                <p class="section-desc">Explore alguns dos cortes apresentados pelo Taquari e consulte as opções disponíveis.</p>
+            </div>
+            
+            <div class="product-grid">
+                <article class="product-card gsap-reveal">
+                    <div class="product-image-wrap">
+                        <img src="assets/denver.jpg" alt="Denver Steak fresco" loading="lazy" width="600" height="600"/>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Denver Steak</h3>
+                        <p class="product-desc">Corte nobre com excelente marmoreio, extraído do acém. Ideal para grelha ou frigideira rápida.</p>
+                        <a href="https://www.instagram.com/acouguetaquari/" target="_blank" rel="noopener noreferrer" class="product-action">
+                            Consultar disponibilidade <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="product-card gsap-reveal">
+                    <div class="product-image-wrap">
+                        <img src="assets/flat-iron.jpg" alt="Flat Iron" loading="lazy" width="600" height="600"/>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Flat Iron</h3>
+                        <p class="product-desc">Extremamente macio e suculento, retirado da paleta. Sem nervos, perfeito para um ponto menos.</p>
+                        <a href="https://www.instagram.com/acouguetaquari/" target="_blank" rel="noopener noreferrer" class="product-action">
+                            Consultar disponibilidade <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="product-card gsap-reveal">
+                    <div class="product-image-wrap">
+                        <img src="assets/chorizo.webp" alt="Bife de Chorizo" loading="lazy" width="600" height="600"/>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Bife de Chorizo</h3>
+                        <p class="product-desc">O clássico argentino. Contrafilé com uma capa de gordura lateral que garante sabor intenso e maciez.</p>
+                        <a href="https://www.instagram.com/acouguetaquari/" target="_blank" rel="noopener noreferrer" class="product-action">
+                            Consultar disponibilidade <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="product-card gsap-reveal">
+                    <div class="product-image-wrap">
+                        <img src="assets/costela.webp" alt="Costela Dianteiro" loading="lazy" width="600" height="600"/>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Costela</h3>
+                        <p class="product-desc">Ideal para preparos lentos no bafo ou no fogo de chão, oferecendo sabor rústico e carne que desmancha.</p>
+                        <a href="https://www.instagram.com/acouguetaquari/" target="_blank" rel="noopener noreferrer" class="product-action">
+                            Consultar disponibilidade <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                        </a>
+                    </div>
+                </article>
+            </div>
+            
+            <p class="disclaimer-text gsap-reveal">Consulte a disponibilidade dos cortes pelo nosso canal de atendimento.</p>
+        </section>
+
+        <!-- DOBRA 4: COMPLEMENTOS PARA O CHURRASCO -->
+        <section class="section-padding" style="background-color: var(--color-surface-subtle);" id="complementos">
+            <div class="section-header gsap-reveal">
+                <h2 class="section-title">Além da carne, os complementos do churrasco.</h2>
+            </div>
+
+            <div class="product-grid">
+                <!-- Bebidas -->
+                <article class="product-card gsap-reveal" style="border: none; background: transparent; box-shadow: none;">
+                    <div class="product-image-wrap" style="border-radius: 16px; box-shadow: var(--shadow-subtle);">
+                        <img src="assets/bebidas.png" alt="Bebidas e Cervejas" loading="lazy" width="600" height="600"/>
+                    </div>
+                    <div class="product-content" style="padding: 1.5rem 0;">
+                        <h3 class="product-name" style="font-size: 1.4rem;">Bebidas & Temperos</h3>
+                        <p class="product-desc">Seleção de cervejas geladas, sais parrilleros, rubs e molhos para finalizar seu prato.</p>
+                    </div>
+                </article>
+                
+                <!-- Acessórios -->
+                <article class="product-card gsap-reveal" style="border: none; background: transparent; box-shadow: none;">
+                    <div class="product-image-wrap" style="border-radius: 16px; box-shadow: var(--shadow-subtle);">
+                        <img src="assets/acessorios.png" alt="Acessórios para churrasco" loading="lazy" width="600" height="600"/>
+                    </div>
+                    <div class="product-content" style="padding: 1.5rem 0;">
+                        <h3 class="product-name" style="font-size: 1.4rem;">Equipamentos & Facas</h3>
+                        <p class="product-desc">Facas de alta qualidade, espetos, grelhas e tudo o que o assador precisa.</p>
+                    </div>
+                </article>
+
+                <!-- Carvão -->
+                <article class="product-card gsap-reveal" style="border: none; background: transparent; box-shadow: none;">
+                    <div class="product-image-wrap" style="border-radius: 16px; box-shadow: var(--shadow-subtle); background: var(--color-graphite);">
+                        <div style="width: 100%; height: 100%; display:flex; align-items:center; justify-content:center; color: var(--color-accent); font-size: 5rem;">
+                            <iconify-icon icon="solar:fire-square-bold"></iconify-icon>
+                        </div>
+                    </div>
+                    <div class="product-content" style="padding: 1.5rem 0;">
+                        <h3 class="product-name" style="font-size: 1.4rem;">Carvão & Lenha</h3>
+                        <p class="product-desc">Carvão de excelente brasa, briquetes e lenhas aromáticas para defumação.</p>
+                    </div>
+                </article>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;" class="gsap-reveal">
+                <a href="https://www.instagram.com/acouguetaquari/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                    <span>Consultar produtos</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- DOBRA 5: DESTAQUE EDITORIAL -->
+        <section class="section-padding section-dark">
+            <div class="editorial-split">
+                <div class="editorial-content gsap-reveal">
+                    <h2 class="section-title" style="text-align: left;">Da escolha do corte aos detalhes do preparo.</h2>
+                    <p class="section-desc">Conheça as opções de carnes, temperos, bebidas e acessórios do Taquari para planejar seu próximo churrasco.</p>
+                    <a href="https://www.instagram.com/acouguetaquari/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top: 1rem;">
+                        <iconify-icon icon="solar:chat-round-dots-linear" class="btn-arrow-icon" style="margin-right: -4px;" aria-hidden="true"></iconify-icon>
+                        <span>Conversar sobre meu churrasco</span>
+                    </a>
+                </div>
+                <div class="editorial-image gsap-visual-reveal">
+                    <img src="assets/ossobuco.jpg" alt="Preparo de carne especial" loading="lazy" width="800" height="1000"/>
+                </div>
+            </div>
+        </section>
+
+        <!-- DOBRA 6: A LOJA -->
+        <section class="section-padding" id="loja">
+            <div class="editorial-split" style="direction: rtl;">
+                <div class="editorial-content gsap-reveal" style="direction: ltr;">
+                    <h2 class="section-title" style="text-align: left;">Conheça o Taquari.</h2>
+                    <p class="section-desc">Em Jardim Primavera, Duque de Caxias, o Taquari reúne cortes especiais e produtos para churrasco em uma loja com bebidas, temperos e acessórios.</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=A%C3%A7ougue+Taquari%2C+Avenida+Primavera%2C+256%2C+Jardim+Primavera%2C+Duque+de+Caxias%2C+RJ%2C+25215-255" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="margin-top: 1rem;">
+                        <iconify-icon icon="solar:map-point-linear" class="btn-pin-icon" aria-hidden="true"></iconify-icon>
+                        <span>Visitar a loja</span>
+                    </a>
+                </div>
+                <div class="editorial-image gsap-visual-reveal" style="direction: ltr;">
+                    <img src="assets/loja.jpg" alt="Interior e vitrine do Açougue Taquari" loading="lazy" width="800" height="1000"/>
+                </div>
+            </div>
+        </section>
+
+        <!-- DOBRA 7: CONSULTAS E DELIVERY -->
+        <section class="section-padding" style="background-color: var(--color-surface-subtle);" id="delivery">
+            <div class="section-header gsap-reveal">
+                <h2 class="section-title">Consulte os produtos e as opções de entrega.</h2>
+                <p class="section-desc" style="max-width: 500px; margin: 0 auto;">Informe os produtos que procura. Consulte disponibilidade, valores e condições de entrega. Combine os detalhes com a loja.</p>
+                <div style="margin-top: 2rem;">
+                    <a href="https://www.instagram.com/acouguetaquari/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                        <span>Consultar entrega no Instagram</span>
+                        <iconify-icon icon="solar:scooter-bold" class="btn-arrow-icon" aria-hidden="true"></iconify-icon>
+                    </a>
+                    <p class="disclaimer-text" style="margin-top: 1.5rem;">Consulte a área atendida, a taxa e o prazo para o seu endereço.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- DOBRA 8: INSTAGRAM -->
+        <section class="section-padding">
+            <div class="section-header gsap-reveal" style="margin-bottom: 2rem;">
+                <h2 class="section-title">Acompanhe o Taquari.</h2>
+                <p class="section-desc">Veja publicações de cortes, produtos e novidades no Instagram.</p>
+                <div style="margin-top: 1.5rem;">
+                    <a href="https://www.instagram.com/acouguetaquari/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                        <iconify-icon icon="solar:camera-bold" class="btn-pin-icon" aria-hidden="true"></iconify-icon>
+                        <span>Ver @acouguetaquari</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- DOBRA 9: PERGUNTAS FREQUENTES -->
+        <section class="section-padding" id="faq">
+            <div class="section-header gsap-reveal">
+                <h2 class="section-title">Dúvidas comuns.</h2>
+            </div>
+            
+            <div class="faq-container gsap-reveal">
+                <details class="faq-details">
+                    <summary class="faq-summary">
+                        Onde fica o Taquari?
+                        <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon"></iconify-icon>
+                    </summary>
+                    <div class="faq-content">Avenida Primavera, 256, Jardim Primavera, Duque de Caxias — RJ.</div>
+                </details>
+
+                <details class="faq-details">
+                    <summary class="faq-summary">
+                        Quais são os horários?
+                        <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon"></iconify-icon>
+                    </summary>
+                    <div class="faq-content">Terça a sexta-feira, das 10h às 18h30. Sábado, das 9h às 19h. Domingo, das 9h às 14h. Segunda-feira: fechado. Consulte o atendimento em feriados. (Horários sujeitos a confirmação).</div>
+                </details>
+
+                <details class="faq-details">
+                    <summary class="faq-summary">
+                        O Taquari oferece delivery?
+                        <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon"></iconify-icon>
+                    </summary>
+                    <div class="faq-content">O serviço é anunciado em nosso perfil. Consulte com a loja a disponibilidade para seu endereço, taxas e prazos pelo Instagram.</div>
+                </details>
+
+                <details class="faq-details">
+                    <summary class="faq-summary">
+                        Como consultar cortes e preços?
+                        <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon"></iconify-icon>
+                    </summary>
+                    <div class="faq-content">Entre em contato pelo nosso canal disponível no site para consultar as opções, estoques e os valores atualizados.</div>
+                </details>
+
+                <details class="faq-details">
+                    <summary class="faq-summary">
+                        Além das carnes, o que encontro na loja?
+                        <iconify-icon icon="solar:alt-arrow-down-linear" class="faq-icon"></iconify-icon>
+                    </summary>
+                    <div class="faq-content">Bebidas, temperos e itens para churrasco, como carvão, grelhas, facas e acessórios, sujeitos à disponibilidade.</div>
+                </details>
+            </div>
+        </section>
+
+        <!-- DOBRA 10: LOCALIZAÇÃO E HORÁRIOS -->
+        <section class="section-padding" style="background-color: var(--color-surface-subtle);" id="localizacao">
+            <div class="location-grid">
+                <div class="editorial-image gsap-visual-reveal" style="border-radius: 8px;">
+                    <!-- Placeholder fotográfico da fachada para contexto, usando foto da loja -->
+                    <img src="assets/loja.jpg" alt="Fachada Açougue Taquari" loading="lazy" width="800" height="600" style="aspect-ratio: 4/3;"/>
+                </div>
+                <div class="location-content gsap-reveal">
+                    <h2 class="section-title" style="text-align: left; margin-bottom: 2rem;">Visite o Taquari em Jardim Primavera.</h2>
+                    
+                    <ul class="info-list">
+                        <li class="info-item">
+                            <iconify-icon icon="solar:map-point-bold" class="info-item-icon"></iconify-icon>
+                            <div>
+                                <div class="info-item-title">Endereço</div>
+                                <div class="info-item-text">Avenida Primavera, 256<br/>Jardim Primavera<br/>Duque de Caxias — RJ, 25215-255</div>
+                            </div>
+                        </li>
+                        <li class="info-item">
+                            <iconify-icon icon="solar:clock-circle-bold" class="info-item-icon"></iconify-icon>
+                            <div>
+                                <div class="info-item-title">Horário de Funcionamento</div>
+                                <div class="info-item-text">Terça a sexta: 10h às 18h30<br/>Sábado: 9h às 19h<br/>Domingo: 9h às 14h<br/>Segunda: Fechado</div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <a href="https://www.google.com/maps/search/?api=1&query=A%C3%A7ougue+Taquari%2C+Avenida+Primavera%2C+256%2C+Jardim+Primavera%2C+Duque+de+Caxias%2C+RJ%2C+25215-255" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                        <iconify-icon icon="solar:routing-linear" class="btn-arrow-icon" style="margin-right: -4px;" aria-hidden="true"></iconify-icon>
+                        <span>Traçar rota</span>
+                    </a>
+                </div>
+            </div>
+        </section>

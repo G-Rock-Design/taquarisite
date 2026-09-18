@@ -1,0 +1,230 @@
+
+
+
+
+
+
+<style data-shopify>
+  /* For Webkit-based browsers (Chrome, Safari and Opera) */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* For IE, Edge and Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .date-picker-heading {
+    display: none;
+  }
+
+  .datepicker {
+    border: 1px solid #b19983 !important;
+    border-radius: 24px;
+    background: #fcf8f3;
+    width: 100%;
+    padding: 16px 0;
+
+    & .datepicker--day-name {
+      color: #b19983;
+    }
+  }
+</style>
+<div class="flex h-full flex-row">
+  <div
+    x-data="
+      {
+        items: [],
+        itemsCount: 0,
+        cartTotalPrice: 0,
+        shippingCost: 0,
+        errorMessage: '',
+        error: '',
+        disableButton: true,
+        freeShippingMinimumValue: 70000,
+        freeShippingRemainingValue: 0,
+        freeShippingRemainingPercentual: 0,
+        cepActual: '',
+        selectedShipping: ' ',
+        hasOnlyScheduled: false,
+        dataEmpty: false,
+        checkButtonBehavior() {
+          console.log('[SideCart] checkButtonBehavior invoked', {
+            cep: this.cepActual,
+            selectedShipping: this.selectedShipping,
+            hasCalendarValue: document.getElementById('csShippingpicker')?.value || ''
+          });
+          if (this.cepActual == ''){
+            console.warn('[SideCart] CEP missing while trying to checkout');
+            this.errorMessage = 'Insira seu cep';
+            this.scrollToBottom();
+          } else if (this.selectedShipping == ' '){
+            console.warn('[SideCart] Shipping method not selected');
+            this.errorMessage = 'Selecione uma opção de entrega';
+            this.scrollToBottom();
+          } else if (this.selectedShipping == 'Agendado' && document.getElementById('csShippingpicker').value == ''){
+            console.warn('[SideCart] Scheduled shipping selected without date');
+            this.errorMessage = 'Selecione uma data';
+            this.scrollToBottom();
+          } else {
+            let deliveryDate = '';
+            if (this.selectedShipping != 'Agendado') {
+              const date = new Date();
+              const dateFormated = date.getDate().toString().padStart(2, '0') + '/' + (date.getMonth() + 1).toString().padStart(2, '0') + '/' + date.getFullYear();
+              deliveryDate = document.getElementById('csShippingpicker').value;
+
+              const formData = new FormData();
+              formData.append('line', '1');
+              formData.append('quantity', '');
+              formData.append('properties[_odate]', dateFormated);
+              formData.append('properties[_odm]', 'Shipping');
+
+              fetch('/cart/change.js?csapp=shipcs', {
+                method: 'POST',
+                body: formData,
+              })
+              .catch(error => console.error(error))
+
+              const note = {
+                'attributes': {
+                  'Type Of Order': 'Shipping',
+                  'Data de entrega': dateFormated,
+                  'Previsão': this.selectedShipping
+                }
+              }
+
+              fetch('/cart/update.js?csapp=shipcs', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(note),
+              })
+              .catch(error => console.error(error))
+
+              setTimeout(() => {
+                this.errorMessage = '';
+                window.location.href = '/cart/checkout';
+              }, 400);
+            } else {
+                fetch('/cart/update.js?csapp=shipcs', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ 'attributes': { 'Previsão': 'Agendado' } }),
+                }).catch(error => console.error(error))
+
+                setTimeout(() => {
+                  this.errorMessage = '';
+                  window.location.href = '/cart/checkout';
+                }, 300);
+            }
+          }
+        },
+        addNote(note) {
+          fetch('/cart/update.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ note }),
+          })
+          .catch(error => console.error(error))
+        },
+        special_instructions: false,
+        cupom: false,
+        shipping_calculate: false,
+        total_weight: false,
+        formatMoney(amount) {
+          return new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }).format(amount);
+        },
+        scrollToBottom() {
+          const scrollTarget = document.getElementById('scroll-target');
+          if (scrollTarget) {
+            setTimeout(() => {
+              scrollTarget.scrollTo({
+                top: scrollTarget.scrollHeight,
+                behavior: 'smooth'
+              });
+            }, 300);
+          }
+        }
+      }
+    "
+    x-init="
+      freeShippingRemainingValue = freeShippingMinimumValue - cartTotalPrice
+      freeShippingRemainingPercentual = (cartTotalPrice / freeShippingMinimumValue) * 100
+
+      $store.cart.refresh(itemsCount, items)
+    "
+    class="side-cart-content relative flex h-full w-full flex-col pt-3 bg-secondary-900"
+  >
+    <div
+      x-show="loadingCart"
+      class="
+        absolute inset-0 z-50 flex items-center justify-center bg-white/80
+        pt-0 text-white
+      "
+    >
+      <svg
+  x-show="loadingCart"
+  width="72"
+  height="24"
+  viewBox="0 0 72 24"
+  fill="none"
+  class="animate-pulse"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <circle cx="8" cy="12" r="8" fill="#D1D5DB"/>
+  <circle cx="36" cy="12" r="8" fill="#D1D5DB"/>
+  <circle cx="64" cy="12" r="8" fill="#D1D5DB"/>
+</svg>
+
+    </div>
+    <div class="mx-6 flex items-center justify-between pb-3">
+      <div class="flex flex-row items-center gap-2">
+        <h4 class="text-lg font-semibold">Carrinho</h4>
+        
+      </div>
+      <svg
+        class="icon cursor-pointer text-primary"
+        @click="showCart = false"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    
+    
+      <div class="flex h-full flex-col justify-center gap-6 px-4 text-center md:px-8">
+        
+          <div class="mx-auto">
+            <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="128" height="128" rx="64" fill="#F3F4F6"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M52.7997 49.0667V50.9334H47.854C45.4658 50.9334 43.463 52.7364 43.213 55.1115L40.0691 84.9782C39.7791 87.7336 41.9395 90.1334 44.7101 90.1334H83.2897C86.0603 90.1334 88.2208 87.7336 87.9308 84.9782L84.7869 55.1115C84.5369 52.7364 82.5341 50.9334 80.1459 50.9334H75.1997V49.0667C75.1997 42.8811 70.1853 37.8667 63.9997 37.8667C57.8142 37.8667 52.7997 42.8811 52.7997 49.0667ZM63.9997 41.6C59.876 41.6 56.5331 44.943 56.5331 49.0667V50.9334H71.4664V49.0667C71.4664 44.943 68.1235 41.6 63.9997 41.6ZM56.5331 62.1334C56.5331 66.2571 59.876 69.6 63.9997 69.6C68.1235 69.6 71.4664 66.2571 71.4664 62.1334V60.2667C71.4664 59.2358 72.3021 58.4 73.3331 58.4C74.364 58.4 75.1997 59.2358 75.1997 60.2667V62.1334C75.1997 68.319 70.1853 73.3334 63.9997 73.3334C57.8142 73.3334 52.7997 68.319 52.7997 62.1334V60.2667C52.7997 59.2358 53.6355 58.4 54.6664 58.4C55.6973 58.4 56.5331 59.2358 56.5331 60.2667V62.1334Z" fill="#6B7280"/>
+            </svg>
+          </div>
+        
+        <h2 class="text-h5 font-semibold md:text-h4">Seu carrinho está vazio!</h2>
+        <p class="text-body-base text-gray-700">Confira nossos produtos e encontre algo para você.</p>
+        <a
+          aria-label="Continue comprando"
+          href="/"
+          @click.prevent="showCart = false"
+          class="button button-accent mx-auto w-fit"
+        >Continue comprando</a>
+      </div>
+    
+  </div>
+</div>
+
