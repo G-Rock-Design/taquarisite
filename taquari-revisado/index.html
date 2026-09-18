@@ -264,19 +264,6 @@
             z-index: 0;
         }
 
-        .hero-bg-mobile {
-            display: none; /* Oculto no desktop */
-        }
-
-        @media (max-width: 900px) {
-            .hero-bg-desktop {
-                display: none !important;
-            }
-            .hero-bg-mobile {
-                display: block !important;
-            }
-        }
-
         .hero-overlay {
             position: absolute;
             top: 0;
@@ -1270,14 +1257,37 @@
          Apenas a primeira dobra, com foco em acabamento visual e conversão
          ============================================================ -->
     <main id="conteudo"><section class="hero-section" id="hero" aria-label="Apresentação">
-        <!-- Vídeo de Fundo Desktop -->
-        <video class="hero-bg-video hero-bg-desktop" autoplay loop muted playsinline>
-            <source src="assets/bg-hero.mp4" type="video/mp4">
-        </video>
-        <!-- Vídeo de Fundo Mobile -->
-        <video class="hero-bg-video hero-bg-mobile" autoplay loop muted playsinline>
-            <source src="assets/bg-hero-mobile.mp4" type="video/mp4">
-        </video>
+        <!-- Vídeo de Fundo Dinâmico (Evita conflitos de autoplay em mobile) -->
+        <video class="hero-bg-video" id="heroBgVideo" autoplay loop muted playsinline></video>
+        <script>
+            (function(){
+                var video = document.getElementById('heroBgVideo');
+                var source = document.createElement('source');
+                source.type = 'video/mp4';
+                // Detecta se é mobile/tablet para carregar o vídeo específico
+                if (window.innerWidth <= 900) {
+                    source.src = 'assets/bg-hero-mobile.mp4';
+                } else {
+                    source.src = 'assets/bg-hero.mp4';
+                }
+                video.appendChild(source);
+                video.load();
+                
+                // Força o loop contínuo caso o atributo nativo falhe no iOS/Safari
+                video.addEventListener('ended', function() {
+                    video.currentTime = 0;
+                    video.play();
+                }, false);
+
+                // Força o play silencioso para garantir que inicie
+                var playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(function(error) {
+                        console.log("Autoplay evitado pelo navegador. Aguardando interação.");
+                    });
+                }
+            })();
+        </script>
         <div class="hero-overlay"></div>
         <div class="hero-container">
 

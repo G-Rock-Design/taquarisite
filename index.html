@@ -1272,7 +1272,14 @@
                 }
                 video.appendChild(source);
                 video.load();
-                // Força o play silencioso para garantir que inicie (especial para iOS)
+                
+                // Força o loop contínuo caso o atributo nativo falhe no iOS/Safari
+                video.addEventListener('ended', function() {
+                    video.currentTime = 0;
+                    video.play();
+                }, false);
+
+                // Força o play silencioso para garantir que inicie
                 var playPromise = video.play();
                 if (playPromise !== undefined) {
                     playPromise.catch(function(error) {
