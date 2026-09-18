@@ -274,7 +274,7 @@
             -webkit-appearance: none;
         }
 
-        /* Enquadramento 9:16 estilo Reels no Mobile */
+        /* Enquadramento 9:16 estilo Reels no Mobile com Foto Fixa */
         @media (max-width: 900px) {
             .hero-section {
                 aspect-ratio: 9 / 16 !important;
@@ -283,9 +283,15 @@
                 padding-bottom: 2rem !important;
                 display: flex;
                 align-items: center;
+                background-image: url('assets/bg-hero-mobile.png');
+                background-size: cover;
+                background-position: center;
+            }
+            .hero-bg-video {
+                display: none !important; /* Esconde o elemento de vídeo no mobile */
             }
             .hero-visual-col {
-                display: none !important; /* Esconde as fotos extras para foco total no vídeo */
+                display: none !important; /* Esconde as fotos extras para foco total no fundo */
             }
         }
 
@@ -1282,34 +1288,31 @@
          Apenas a primeira dobra, com foco em acabamento visual e conversão
          ============================================================ -->
     <main id="conteudo"><section class="hero-section" id="hero" aria-label="Apresentação">
-        <!-- Vídeo de Fundo Dinâmico (Evita conflitos de autoplay em mobile) -->
-        <video class="hero-bg-video" id="heroBgVideo" autoplay loop muted playsinline></video>
+        <!-- Vídeo de Fundo Dinâmico (Carregado via JS apenas no Desktop) -->
+        <video class="hero-bg-video" id="heroBgVideo" loop muted playsinline></video>
         <script>
             (function(){
-                var video = document.getElementById('heroBgVideo');
-                var source = document.createElement('source');
-                source.type = 'video/mp4';
-                // Detecta se é mobile/tablet para carregar o vídeo específico
-                if (window.innerWidth <= 900) {
-                    source.src = 'assets/bg-hero-mobile.mp4';
-                } else {
+                // Apenas carrega o vídeo no desktop
+                if (window.innerWidth > 900) {
+                    var video = document.getElementById('heroBgVideo');
+                    var source = document.createElement('source');
+                    source.type = 'video/mp4';
                     source.src = 'assets/bg-hero.mp4';
-                }
-                video.appendChild(source);
-                video.load();
-                
-                // Força o loop contínuo caso o atributo nativo falhe no iOS/Safari
-                video.addEventListener('ended', function() {
-                    video.currentTime = 0;
-                    video.play();
-                }, false);
+                    video.appendChild(source);
+                    video.load();
+                    
+                    // Força o loop contínuo
+                    video.addEventListener('ended', function() {
+                        video.currentTime = 0;
+                        video.play();
+                    }, false);
 
-                // Força o play silencioso para garantir que inicie
-                var playPromise = video.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(function(error) {
-                        console.log("Autoplay evitado pelo navegador. Aguardando interação.");
-                    });
+                    var playPromise = video.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(function(error) {
+                            console.log("Autoplay evitado pelo navegador. Aguardando interação.");
+                        });
+                    }
                 }
             })();
         </script>
