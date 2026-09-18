@@ -262,6 +262,16 @@
             height: 100%;
             object-fit: cover;
             z-index: 0;
+            pointer-events: none; /* Garante que o usuário não consiga clicar no vídeo acidentalmente */
+        }
+
+        /* Esconde o botão de play gigante que o iPhone coloca quando está em Economia de Bateria */
+        .hero-bg-video::-webkit-media-controls {
+            display: none !important;
+        }
+        .hero-bg-video::-webkit-media-controls-start-playback-button {
+            display: none !important;
+            -webkit-appearance: none;
         }
 
         /* Enquadramento 9:16 estilo Reels no Mobile */
