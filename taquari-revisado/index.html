@@ -264,6 +264,21 @@
             z-index: 0;
         }
 
+        /* Enquadramento 9:16 estilo Reels no Mobile */
+        @media (max-width: 900px) {
+            .hero-section {
+                aspect-ratio: 9 / 16 !important;
+                min-height: 0 !important;
+                padding-top: 5rem !important;
+                padding-bottom: 2rem !important;
+                display: flex;
+                align-items: center;
+            }
+            .hero-visual-col {
+                display: none !important; /* Esconde as fotos extras para foco total no vídeo */
+            }
+        }
+
         .hero-overlay {
             position: absolute;
             top: 0;
